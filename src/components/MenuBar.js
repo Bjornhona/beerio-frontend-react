@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 class MenuBar extends Component {
 
-  myFunction = () => {
-    var x = document.getElementById("myTopnav");
+  handleResponsive = () => {
+    var x = this.getElementById("myTopnav");
     if (x.className === "topnav") {
-        x.className += " responsive";
+        x.className += "responsive";
     } else {
         x.className = "topnav";
     }
@@ -22,7 +22,7 @@ class MenuBar extends Component {
           <Link to='/beers' className="menu-button">Beers</Link>
           <Link to='/favorites' className="menu-button">Favorites</Link>
           <Link to='/play' className="menu-button">Play</Link>
-          <Link to="javascript:void(0);" className="icon" onclick="myFunction()">
+          <Link to="#" className="menu-button icon" onClick={this.handleResponsive}>
             <img className="burger-pic" src="/images/burger.png" alt="burger menu" />
           </Link>
         </div>

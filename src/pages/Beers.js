@@ -17,7 +17,6 @@ class Beers extends Component {
   update = () => {
     beerService.getBeers()
     .then((data) => {
-      console.log("data", data);
       this.setState({
         data: data
       })

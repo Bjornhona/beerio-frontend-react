@@ -93,11 +93,12 @@ p {
     width: 25px;
   }
 
-  .menu-button:not(:first-child) { {/* Ska sedan vara topnav */}
+  .topnav a:not(:first-child) {
+    /* Ska sedan vara topnav */
     display: none;
   }
 
-  .menu-button.icon {
+  .topnav a.icon {
     float: right;
     display: block;
   }
@@ -159,12 +160,12 @@ div.navbar {
 
 .topnav a:hover {
   background-color: #ddd;
-  color: black;
+  color: grey;
 }
 
 .active {
-  background-color: #4CAF50;
-  color: white;
+  background-color: #ddd;
+  color: black;
 }
 
 .topnav .icon {

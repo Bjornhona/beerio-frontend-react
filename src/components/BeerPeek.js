@@ -5,7 +5,6 @@ class BeerPeek extends Component {
 
   render () {
     const {item} = this.props;
-    console.log(item)
     return (
       <div className="menu-bar">
         
@@ -14,7 +13,7 @@ class BeerPeek extends Component {
         <p>Info</p>
         <p>Organic Beer: {item.isOrganic}</p>
         <img src="#" alt="Add to favorites" className="toggle-favorite" />
-        <Link to='/beers/id' id={item.id} className="menu-button">&gt;</Link>
+        <Link to={`/beers/${item.id}`} className="menu-button">&gt;</Link>
       </div>
       )
     }

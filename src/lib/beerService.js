@@ -14,7 +14,12 @@ class BeerService {
     return this.beer.get('/beers')
     .then(({data}) => data)
   }
-  
+
+  getBeer(id) {
+    return this.beer.get(`/beers/${id}`)
+    .then(({data}) => data)
+  }
+   
 }
 
 export const beerService = new BeerService()

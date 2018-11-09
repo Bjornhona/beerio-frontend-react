@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withAuth } from '../lib/authContext';
-import { beerIdService } from '../lib/beerIdService';
-// import { Link } from 'react-router-dom';
+import { beerService } from '../lib/beerService';
+import { Link } from 'react-router-dom';
 
 class Beer extends Component {
 
@@ -14,12 +14,13 @@ class Beer extends Component {
   }
 
   update = () => {
-    beerIdService.getBeers(this.props.id)
+    const id = this.props.match.params.id
+    beerService.getBeer(id)
     .then((data) => {
-      console.log("data", data);
-      // this.setState({
-      //   data: data
-      // })
+      //console.log("data", data);
+      this.setState({
+        data: data
+      })
     })
     .catch((error) => {
       console.log(error);
@@ -27,16 +28,16 @@ class Beer extends Component {
   }
 
   render() {
-    //const { data } = this.props;
+    let { data } = this.state;
     return (
       <div>
-        {/* <Link to='/beers' className="menu-button">&lt;</Link> */}
+        <Link to='/beers' className="menu-button">&lt;</Link>
         <h1>Beer Page</h1>
-        {/* <img src={data.labels.icon} alt="No pic" /> */}
-        {/* <h3>{data.name}</h3>
+        {/*<img src={data.labels.icon} alt="No pic" />*/}
+        <h3>{data.name}</h3>
         <p>Info</p>
         <p>Organic Beer: {data.isOrganic}</p>
-        <img src="#" alt="Add to favorites" className="toggle-favorite" /> */}
+        <img src="#" alt="Add to favorites" className="toggle-favorite" />
       </div>
     )
   }
