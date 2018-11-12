@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import { withAuth } from '../lib/authContext';
 import BeerPeek from '../components/BeerPeek';
+import SearchBar from '../components/SearchBar';
 import { Link } from 'react-router-dom';
 import { beerService } from '../lib/beerService';
 
 class Beers extends Component {
 
   state = {
-    data: []
+    data: [],
+    favorites: [],
+    isFavorite: false
   }
 
   componentDidMount() {
@@ -17,7 +20,6 @@ class Beers extends Component {
   update = () => {
     beerService.getBeers()
     .then((data) => {
-      console.log("data", data);
       this.setState({
         data: data
       })
@@ -25,18 +27,48 @@ class Beers extends Component {
     .catch((error) => {
       console.log(error);
     })
+
+    beerService.getFavorites()
+    .then((result) => {
+      this.setState({
+        favorites: result
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
+  handleFavorite = (item) => {
+    let favorite = this.favorites.indexOf(item.id)
+
+    if (favorite > -1) {
+      // return {isFavorite: true}
+      this.setState({
+        isFavorite: true
+      })
+    } else {
+      this.setState({
+        isFavorite: true
+      })
+    }
+    
   }
 
   render() {
     const { data } = this.state;
     return (
-      <div>
-        <Link to='/home' className="menu-button">&lt;</Link>
-        <h1>Beers Page</h1>
-        <h3>Welcome {this.props.user.username}</h3>
+      <div className="index-div section">
+        <SearchBar />
+        <div className="beers-title">
+          <Link to='/home' className="menu-button">&lt;</Link>
+          <h4>Explore the world's best beers</h4>
+        </div>
         {data.map((item) => {
           return (
-              <BeerPeek key={item.id} item={item} />
+            <div className="beer-container" key={item.id}>
+              <BeerPeek item={item} favorite={this.handleFavorite}/>
+            </div>
           )
         })}
 

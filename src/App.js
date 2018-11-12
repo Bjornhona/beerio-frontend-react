@@ -4,7 +4,6 @@ import './App.css';
 
 import PrivateRoute from './components/PrivateRoute'
 import Navbar from './components/Navbar';
-import MenuBar from './components/MenuBar';
 import Index from './pages/Index';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -14,16 +13,22 @@ import Favorites from './pages/Favorites';
 import Beer from './pages/Beer';
 import Play from './pages/Play';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
+
 import AuthContext from './lib/authContext';
+
+library.add(faStroopwafel)
 
 class App extends Component {
   render() {
     return (
       <AuthContext>
-        <div className="container">
-        <MenuBar />
-          <div>
+        <div>
+          <div className="nav-bar">
             <Navbar />
+          </div>
             <Switch>
               <Route exact path="/" component={Index} />
               <Route path="/signup" component={Signup} />
@@ -31,10 +36,9 @@ class App extends Component {
               <PrivateRoute path="/home" component={Home} />
               <PrivateRoute exact path="/beers" component={Beers} />
               <PrivateRoute path="/favorites" component={Favorites} />
-              <PrivateRoute path="/beers/id" component={Beer} />
+              <PrivateRoute path="/beers/:id" component={Beer} />
               <PrivateRoute path="/play" component={Play} />
             </Switch>
-          </div>
         </div>
       </AuthContext>
     )

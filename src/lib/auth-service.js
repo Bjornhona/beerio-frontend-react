@@ -29,6 +29,11 @@ class Auth {
     return this.auth.get('/auth/me')
     .then(response => response.data)
   }
+
+  // postFavorite(data) {
+  //   return this.beer.put('/beers')
+  //   .then(({data}) => data)
+  // }
 }
 
 const auth = new Auth();
