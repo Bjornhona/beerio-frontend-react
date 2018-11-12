@@ -167,8 +167,9 @@ api int: POST /beers/favorites
 
 ## Links
 
-### Trello/Kanban
-Link to your trello board or picture of your physical board
+### Trello and Kanban
+Trello url [https://trello.com/b/fBzgnuku/namnl%C3%B6s-tavla](https://trello.com/b/fBzgnuku/namnl%C3%B6s-tavla)
+Picture of my physical Kanban board
 
 ### Git
 The url to your repository and to your deployed project

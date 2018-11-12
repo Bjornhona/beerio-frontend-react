@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { withAuth } from '../lib/authContext';
 import BeerPeek from '../components/BeerPeek';
+import SearchBar from '../components/SearchBar';
 import { Link } from 'react-router-dom';
 import { beerService } from '../lib/beerService';
 
 class Beers extends Component {
 
   state = {
-    data: []
+    data: [],
+    favorites: []
   }
 
   componentDidMount() {
@@ -24,18 +26,32 @@ class Beers extends Component {
     .catch((error) => {
       console.log(error);
     })
+
+    beerService.getFavorites()
+    .then((result) => {
+      this.setState({
+        favorites: result
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   }
 
   render() {
-    const { data } = this.state;
+    const { data, favorites } = this.state;
     return (
-      <div>
-        <Link to='/home' className="menu-button">&lt;</Link>
-        <h1>Beers Page</h1>
-        <h3>Welcome {this.props.user.username}</h3>
+      <div className="index-div section">
+        <SearchBar />
+        <div className="beers-title">
+          <Link to='/home' className="menu-button">&lt;</Link>
+          <h4>Explore the world's best beers</h4>
+        </div>
         {data.map((item) => {
           return (
-              <BeerPeek key={item.id} item={item} />
+            <div className="beer-container" key={item.id}>
+              <BeerPeek item={item} favorites={favorites} />
+            </div>
           )
         })}
 
