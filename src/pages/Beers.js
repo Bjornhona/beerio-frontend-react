@@ -9,7 +9,8 @@ class Beers extends Component {
 
   state = {
     data: [],
-    favorites: []
+    favorites: [],
+    isFavorite: false
   }
 
   componentDidMount() {
@@ -38,8 +39,24 @@ class Beers extends Component {
     })
   }
 
+  handleFavorite = (item) => {
+    let favorite = this.favorites.indexOf(item.id)
+
+    if (favorite > -1) {
+      // return {isFavorite: true}
+      this.setState({
+        isFavorite: true
+      })
+    } else {
+      this.setState({
+        isFavorite: true
+      })
+    }
+    
+  }
+
   render() {
-    const { data, favorites } = this.state;
+    const { data } = this.state;
     return (
       <div className="index-div section">
         <SearchBar />
@@ -50,7 +67,7 @@ class Beers extends Component {
         {data.map((item) => {
           return (
             <div className="beer-container" key={item.id}>
-              <BeerPeek item={item} favorites={favorites} />
+              <BeerPeek item={item} favorite={this.handleFavorite}/>
             </div>
           )
         })}
