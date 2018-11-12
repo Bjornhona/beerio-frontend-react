@@ -39,12 +39,12 @@ class Signup extends Component {
         <div className="section">
           <h2>Sign up</h2>
           <p>Become a part of this world of beers and sign up today!</p>
-          <form onSubmit={this.handleFormSubmit}>
+          <form onSubmit={this.handleFormSubmit} className="signup">
             <label>Username:</label>
             <input type="text" name="username" value={username} onChange={this.handleChange}/>
             <label>Password:</label>
             <input type="password" name="password" value={password} onChange={this.handleChange} />
-            <input type="submit" value="Sign up" className="beer-container beer-button" />
+            <input type="submit" value="Sign up" className="beer-container beer-button beer-top" />
             <p>Already have account? 
               <Link to={"/login"}> Login</Link>
             </p>

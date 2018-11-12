@@ -11,8 +11,8 @@ class Index extends Component {
           <h1>BEERIO</h1>
           <h5>The happy Beer Gormand</h5>
           <p>Sign up to learn about all your favorite beers. We'll help you remember the good moments!</p>
-          <Link to="/login" className="beer-container beer-button"><p>Log in</p></Link>
-          <Link to="/signup" className="beer-container beer-button"><p>Sign up</p></Link>
+          <Link to="/login" className="beer-container beer-button beer-top"><p>Log in</p></Link>
+          <Link to="/signup" className="beer-container beer-button beer-top"><p>Sign up</p></Link>
           <img className="beermix" src="images/beermix.png" alt="beers" />
         </div>
       </div>

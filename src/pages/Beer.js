@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom';
 class Beer extends Component {
 
   state = {
-      data: []
+      data: [],
+      favorites: [],
+      isFavorite: false
   }
 
   componentDidMount() {
@@ -25,20 +27,52 @@ class Beer extends Component {
     .catch((error) => {
       console.log(error);
     })
+
+    beerService.getFavorites()
+    .then((result) => {
+      this.setState({
+        favorites: result
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
+  saveToFavorites = (item) => {
+    beerService.postFavorite({
+      id: item.id,
+      name: item.name,
+      isOrganic: item.isOrganic,
+      icon: item.labels.icon
+    })
+    .then()
+    .catch()
+  }
+
+  handleFavorite = (item) => {
+    let favorite = this.state.favorites.indexOf(item.id)
+    console.log(favorite);
+
+    if (favorite > -1) {
+      this.setState({
+        isFavorite: true
+      })
+    } 
+    
   }
 
   render() {
-    let { data } = this.state;
+    let { data, isFavorite } = this.state;
     console.log(data)
-    // let ibu = (data.style.ibuMax + data.style.ibuMin)/2;
     return (
       <div className="index-div section">
         <div className="beer-container beer-text">
           <div className="back-heart">
-            <Link to='/beers' className="menu-button">&lt;</Link>
-            <div className="toggle-favorite heart" onClick={this.saveToFavorites}>&hearts;</div>
+            <Link to='/beers' className="menu-button back"><span role="img" aria-label="left-angle-bracket">〈</span></Link>
+            <div className="heart" onClick={this.saveToFavorites}>{isFavorite ? <span role="img" aria-label="red-heart">❤️</span> : <span role="img" aria-label="black-heart">🖤</span>}</div>
           </div>
-          {data.labels && <div className="label-img"><div><img src={data.labels.large} alt="No pic" /></div></div>}
+          {data.labels && <div className="label-img"><div><img className="big-label-img" src={data.labels.large} alt="No pic" /></div></div>}
           <h1>{data.name}</h1>
           {data.style && <h5>{data.style.name}</h5>}
           {data.style && <h6>{data.style.category.name}</h6>}

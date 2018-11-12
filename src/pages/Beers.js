@@ -40,34 +40,30 @@ class Beers extends Component {
   }
 
   handleFavorite = (item) => {
-    let favorite = this.favorites.indexOf(item.id)
+    let favorite = this.state.favorites.indexOf(item.id)
+    console.log(favorite);
 
     if (favorite > -1) {
-      // return {isFavorite: true}
       this.setState({
         isFavorite: true
       })
-    } else {
-      this.setState({
-        isFavorite: true
-      })
-    }
+    } 
     
   }
 
   render() {
-    const { data } = this.state;
+    const { data, isFavorite } = this.state;
     return (
       <div className="index-div section">
         <SearchBar />
         <div className="beers-title">
-          <Link to='/home' className="menu-button">&lt;</Link>
+          <Link to='/home' className="menu-button back"><span role="img" aria-label="left-angle-bracket">〈</span></Link>
           <h4>Explore the world's best beers</h4>
         </div>
         {data.map((item) => {
           return (
             <div className="beer-container" key={item.id}>
-              <BeerPeek item={item} favorite={this.handleFavorite}/>
+              <BeerPeek item={item} favorite={this.handleFavorite(item)} isFavorite={isFavorite} />
             </div>
           )
         })}

@@ -34,12 +34,12 @@ class Login extends Component {
         <p>Welcome back, log in to enter our world of beers!</p>
         </div>
         <form onSubmit={this.handleFormSubmit}>
-          <div className="section">
+          <div className="section login">
             <label>Username:</label>
             <input type="text" name="username" value={username} onChange={this.handleChange} />
             <label>Password:</label>
             <input type="password" name="password" value={password} onChange={this.handleChange} />
-            <input type="submit" value="Log in" className="beer-container beer-button" />
+            <input type="submit" value="Log in" className="beer-container beer-button beer-top" />
           </div>
         </form>
       </div>

@@ -8,24 +8,40 @@ class Home extends Component {
     return (
       <div className="index-div section">
         <Link to="/beers" className="beer-container beer-button nice-beer">
-          <h2>EXPLORE</h2>
-          <p>Read about the best beers</p>
-          <FontAwesomeIcon icon="stroopwafel" />
+          <div className="home-align">
+            <div>
+              <h2>EXPLORE</h2>
+              <p>Read about the best beers</p>
+            </div>
+            <div><FontAwesomeIcon icon="search" className="fontawesome blue" /></div>
+          </div>
         </Link>
         <Link to="/favorites" className="beer-container beer-button nice-beer">
-          <h2>FAVORITES</h2>
-          <p>Read about the best beers</p>
-
+          <div className="home-align">
+            <div>
+              <h2>FAVORITES</h2>
+              <p>Remember the beers you love</p>
+            </div>
+            <FontAwesomeIcon icon="heart" className="fontawesome red" />
+          </div>
         </Link>
         <Link to="/random" className="beer-container beer-button nice-beer">
-          <h2>RECOMMENDED</h2>
-          <p>Read about the best beers</p>
-
+          <div className="home-align">
+            <div>
+              <h2>RECOMMENDED</h2>
+              <p>The most wanted beers</p>
+            </div>
+          <FontAwesomeIcon icon="star" className="fontawesome lila" />
+          </div>
         </Link>
         <Link to="/play" className="beer-container beer-button nice-beer">
-          <h2>PLAY</h2>
-          <p>Read about the best beers</p>
-
+          <div className="home-align">
+            <div>
+              <h2>PLAY</h2>
+              <p>Your beer personality</p>
+            </div>
+            <div><FontAwesomeIcon icon="play-circle" className="fontawesome yellow" /></div>
+          </div>
         </Link>
       </div>
     )

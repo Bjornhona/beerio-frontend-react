@@ -13,13 +13,18 @@ import Favorites from './pages/Favorites';
 import Beer from './pages/Beer';
 import Play from './pages/Play';
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 import AuthContext from './lib/authContext';
 
-library.add(faStroopwafel)
+library.add(faPlayCircle);
+library.add(faSearch);
+library.add(faHeart);
+library.add(faStar);
 
 class App extends Component {
   render() {
