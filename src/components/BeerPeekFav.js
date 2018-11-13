@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 // import auth from '../lib/auth-service';
 import { beerService } from '../lib/beerService';
 
-class BeerPeek extends Component {
+class BeerPeekFav extends Component {
 
   state = {
     isFavorite: this.props.item.favorite
@@ -41,7 +41,7 @@ class BeerPeek extends Component {
           <div className="organic"><p><strong>Organic: </strong>{item.isOrganic}</p></div>
           <div className="heart-div">
             <div className="heart" onClick={this.saveToFavorites}>{isFavorite ? <span role="img" aria-label="red-heart">❤️</span> : <span role="img" aria-label="black-heart">🖤</span>}</div>
-            <Link to={`/beers/${item.id}`} className="menu-button"><span role="img" aria-label="right-angle-bracket">〉</span></Link>
+            <Link to={`/beers/${item.id}`} className="menu-button" item={item}><span role="img" aria-label="right-angle-bracket">〉</span></Link>
           </div>
         </div>
       </div>
@@ -49,4 +49,4 @@ class BeerPeek extends Component {
   }
 }
   
-  export default BeerPeek;
+  export default BeerPeekFav;

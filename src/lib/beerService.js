@@ -3,7 +3,7 @@ import axios from 'axios';
 class BeerService {
   constructor() {
     this.beer = axios.create({
-      baseURL: 'http://localhost:5000',
+      baseURL: [process.env.REACT_APP_BASEURL],
       withCredentials: true
     })
   }

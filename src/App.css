@@ -11,8 +11,8 @@ html {
 body {
   margin: 0;
   padding: 0;
-  min-height: 100%;
   background-image: linear-gradient(#99804e, #d2bb93, #eee6da);
+  min-height: 100%;
   background-repeat: no-repeat;
 }
 
@@ -361,10 +361,9 @@ div.navbar {
 
 /* ---- index ---- */
 .index-div {
-  /* background-image: linear-gradient(#99804e, #d2bb93, #eee6da); */
   min-height: 100%;
-  /* position: fixed;
-  left: 0; */
+  /*position: fixed;
+  left: 0;*/
   color: white;
 }
 
@@ -386,30 +385,29 @@ img.beermix {
 
 .fontawesome {
   border-radius: 50%;
-  font-size: 30px;
   padding: 15px;
   font-size: 80px;
   margin: 10px;
 }
 
 .blue {
-  border: 5px solid rgb(1, 194, 194);
-  color: rgb(1, 194, 194);
+  border: 5px solid #00bdce;
+  color: #00bdce;
 }
 
 .red {
-  border: 5px solid rgb(235, 71, 71);
-  color: rgb(235, 71, 71);
+  border: 5px solid #FF007F;
+  color: #FF007F;
 }
 
 .lila {
-  border: 5px solid rgb(202, 1, 202);
-  color: rgb(202, 1, 202);
+  border: 5px solid #70df02;
+  color: #70df02;
 }
 
 .yellow {
-  border: 5px solid rgb(228, 187, 2);
-  color: rgb(228, 187, 2);
+  border: 5px solid #ff9100;
+  color: #ff9100;
 }
 
 /* ---- beers ---- */

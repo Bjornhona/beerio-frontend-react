@@ -8,6 +8,7 @@ class Beer extends Component {
   state = {
       data: [],
       favorites: [],
+      item: this.props.item,
       isFavorite: false
   }
 
@@ -19,7 +20,6 @@ class Beer extends Component {
     const id = this.props.match.params.id
     beerService.getBeer(id)
     .then((data) => {
-      //console.log("data", data);
       this.setState({
         data: data
       })
@@ -31,38 +31,52 @@ class Beer extends Component {
     beerService.getFavorites()
     .then((result) => {
       this.setState({
-        favorites: result
+        favorites: result,
+        isFavorite: true
       })
     })
     .catch((error) => {
       console.log(error);
     })
+
+    // beerService.getBeer()
+    // .then((result) => {
+    //   this.setState({
+    //     favorites: result.favorites
+    //   })
+    // })
   }
 
-  saveToFavorites = (item) => {
+  handleFavorite = (item) => {
+    const favorite = this.state.favorites.find(favorite => {
+      return favorite.id === item.id;
+    });
+    console.log(favorite);
+
+    if (favorite) {
+      item.favorite = true
+      }
+    }
+
+  saveToFavorites = () => {
+    const { item } = this.props;
+    const { isFavorite } = this.state;
     beerService.postFavorite({
       id: item.id,
       name: item.name,
       isOrganic: item.isOrganic,
       icon: item.labels.icon
     })
-    .then()
-    .catch()
-  }
-
-  handleFavorite = (item) => {
-    let favorite = this.state.favorites.indexOf(item.id)
-    console.log(favorite);
-
-    if (favorite > -1) {
-      this.setState({
-        isFavorite: true
-      })
-    } 
-    
+    .then(() => {
+      this.setState({ isFavorite: !isFavorite })
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   }
 
   render() {
+    const { item } = this.props;
     let { data, isFavorite } = this.state;
     console.log(data)
     return (

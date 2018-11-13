@@ -13,7 +13,7 @@ class Home extends Component {
               <h2>EXPLORE</h2>
               <p>Read about the best beers</p>
             </div>
-            <div><FontAwesomeIcon icon="search" className="fontawesome blue" /></div>
+            <FontAwesomeIcon icon="search" className="fontawesome blue" />
           </div>
         </Link>
         <Link to="/favorites" className="beer-container beer-button nice-beer">
@@ -40,7 +40,7 @@ class Home extends Component {
               <h2>PLAY</h2>
               <p>Your beer personality</p>
             </div>
-            <div><FontAwesomeIcon icon="play-circle" className="fontawesome yellow" /></div>
+            <FontAwesomeIcon icon="play-circle" className="fontawesome yellow" />
           </div>
         </Link>
       </div>
