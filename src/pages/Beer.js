@@ -17,7 +17,8 @@ class Beer extends Component {
   }
 
   update = () => {
-    const id = this.props.match.params.id
+    const id = this.props.match.params.id;
+    // const isFavorite = this.state;
     beerService.getBeer(id)
     .then((data) => {
       this.setState({
@@ -30,42 +31,53 @@ class Beer extends Component {
 
     beerService.getFavorites()
     .then((result) => {
+        console.log(result, 'This shows result of isFavorite from getFavorites');
+        let isFavorite = this.state;
+        result.find((favorite) => {
+          if (id === favorite.id) {
+            return isFavorite = true;
+          } else {
+            return isFavorite = false;
+          }
+        })
+        this.setState({
+          isFavorite: isFavorite
+        })
+
       this.setState({
         favorites: result,
-        isFavorite: true
       })
     })
     .catch((error) => {
       console.log(error);
     })
-
-    // beerService.getBeer()
-    // .then((result) => {
-    //   this.setState({
-    //     favorites: result.favorites
-    //   })
-    // })
   }
 
   handleFavorite = (item) => {
     const favorite = this.state.favorites.find(favorite => {
       return favorite.id === item.id;
     });
-    console.log(favorite);
 
     if (favorite) {
       item.favorite = true
       }
+
+    this.setState({
+      favorite: favorite
+    })
+      
     }
 
   saveToFavorites = () => {
-    const { item } = this.props;
     const { isFavorite } = this.state;
+    const favorite = this.state;
+    console.log(favorite.data, 'This is put to favorites from Beer page');
+    
     beerService.postFavorite({
-      id: item.id,
-      name: item.name,
-      isOrganic: item.isOrganic,
-      icon: item.labels.icon
+      id: favorite.data.id,
+      name: favorite.data.name,
+      isOrganic: favorite.data.isOrganic,
+      icon: favorite.data.icon
     })
     .then(() => {
       this.setState({ isFavorite: !isFavorite })
@@ -76,9 +88,7 @@ class Beer extends Component {
   }
 
   render() {
-    const { item } = this.props;
     let { data, isFavorite } = this.state;
-    console.log(data)
     return (
       <div className="index-div section">
         <div className="beer-container beer-text">
