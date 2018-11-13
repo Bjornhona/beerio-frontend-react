@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import auth from '../lib/auth-service';
 import { beerService } from '../lib/beerService';
 
 class BeerPeek extends Component {

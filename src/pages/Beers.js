@@ -67,30 +67,6 @@ class Beers extends Component {
             </div>
           )
         })}
-
-         {/* {this.state.data.map((item) => {
-          if (item.labels.icon) {
-            return (
-            <div key={item.login}>
-              <img src={item.avatar_url} alt="My Avatar" width="100px" border="2px solid black" />
-              <p><strong>Name: </strong>{item.name}</p>
-              <p><strong>Username: </strong>{item.login}</p>
-              <p><strong>Bio: </strong>{item.bio}</p>
-              <p><strong>Company: </strong>{item.company}</p>
-              <p><strong>Repositories: </strong>{item.public_repos}</p>
-              <p><strong>Blog: </strong>{item.blog}</p>
-            </div> )
-          } else {
-            return (
-              <div key={item.login}>
-                <img src={item.avatar_url} alt="My Avatar" width="100px" border="2px solid black" />
-                <p><strong>Username: </strong>{item.login}</p>
-              </div>
-            )
-          }
-        })} */}
-
-
       </div>
     )
   }
