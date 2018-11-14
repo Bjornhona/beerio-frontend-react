@@ -74,6 +74,10 @@ input[type=submit]:hover {
   color: white;
 }
 
+.app {
+  padding-top: 100px;
+}
+
 /* ---- components ---- */
 
 .beer-button, .beer-text {
@@ -125,6 +129,7 @@ input[type=submit]:hover {
   border-radius: 30px;
   display: flex;
   color: #513e29;
+  transition-duration: 1s;
 }
 
 .home-align {
@@ -221,7 +226,17 @@ input[type=submit]:hover {
   user-select: none;
 }
 
-#menuToggle input {
+#menuToggleRight {
+  display: block;
+  position: relative;
+  top: 0px;
+  right: 0px;
+  z-index: 1;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menuToggle input, #menuToggleRight input {
   display: block;
   width: 40px;
   height: 32px;
@@ -254,7 +269,7 @@ li.cursor {
               opacity 0.55s ease;
 }
 
-#menuToggle img {
+#menuToggle img, #menuToggleRight img {
   display: block;
   margin-bottom: 5px;
   position: relative;
@@ -321,7 +336,7 @@ li.cursor {
   font-size: 12px;
 }
 
-#menuToggle input:checked ~ ul {
+#menuToggle input:checked ~ ul, #menuToggleRight input:checked ~ ul {
   transform: none;
 }
 
@@ -329,6 +344,11 @@ li.cursor {
 div.nav-bar {
   background-color: white;
   padding: 15px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: overflow;
+  width: 100%;
 }
 
 div.navbar {
@@ -340,8 +360,8 @@ div.navbar {
 /* ---- index ---- */
 .index-div {
   min-height: 100%;
-  /*position: fixed;
-  left: 0;*/
+  /* position: fixed;
+  left: 0; */
   color: white;
 }
 
@@ -428,6 +448,7 @@ img.beermix {
 .back-heart {
   display: flex;
   justify-content: space-between;
+  padding-top: 10px;
 }
 
 .label-img {
@@ -446,4 +467,22 @@ img.beermix {
 
 .beer-name h5 {
   margin-top: 0;
+}
+
+/* ---- mood ---- */
+
+.mood-image {
+  width: 50px;
+}
+
+.first-row {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+}
+
+.mood-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

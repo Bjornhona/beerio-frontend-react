@@ -9,21 +9,8 @@ class Play extends Component {
     happiness: ''
   }
 
-  handleFormSubmit = (event) => {
-    event.preventDefault();
-    // const username = this.state.username;
-    // const password = this.state.password;
-
-    // auth.signup({ username, password })
-    //   .then( (user) => {
-    //     this.setState({
-    //         username: "",
-    //         password: "",
-    //     });
-    //     this.props.setUser(user);
-    //     this.props.history.push('/home');
-    //   })
-    //   .catch( error => console.log(error) )
+  handleFormSubmit = () => {
+    this.props.history.push('/recommended');
   }
 
   render() {
@@ -35,22 +22,81 @@ class Play extends Component {
           <h4>What beer mood are you in, {this.props.user.username}?</h4>
         </div>
         <form onSubmit={this.handleFormSubmit} className="signup">
-          <label>Select your current mood</label>
-          <label>Happy:</label>
-          <input type="radio" name="happy" value={mood} /*onChange={this.handleChange*//>
-          <label>Tired:</label>
-          <input type="radio" name="tired" value={mood} />
-          <label>angry:</label>
-          <input type="radio" name="angry" value={mood} />
-          <label>Bored:</label>
-          <input type="radio" name="bored" value={mood} />
-
-          <label>Select your area</label>
-          <input type="radio" name="happiness" value={happiness} onChange={this.handleChange} />
+          <h2>What mood are you in?</h2>
+          <div className="first-row">
+            <div className="mood-row">
+              <div><img className="mood-image" src="/images/mood_1.png" alt="happy" /></div>
+              <input type="radio" name="mood" value={mood} /*onChange={this.handleChange*//>
+              <label>Horrible</label>
+            </div>
+            <div className="mood-row">
+              <div><img className="mood-image" src="/images/mood_2.png" alt="happy" /></div>
+              <input type="radio" name="mood" value={mood} />
+              <label>Bad</label>
+            </div>
+            <div className="mood-row">
+              <div><img className="mood-image" src="/images/mood_3.png" alt="happy" /></div>
+              <input type="radio" name="mood" value={mood} />
+              <label>Sad</label>
+            </div>
+          </div>
+          <div className="first-row">
+            <div className="mood-row">
+              <div><img className="mood-image" src="/images/mood_4.png" alt="happy" /></div>
+              <input type="radio" name="mood" value={mood} />
+              <label>Okay</label>
+            </div>
+            <div className="mood-row">
+              <div><img className="mood-image" src="/images/mood_5.png" alt="happy" /></div>
+              <input type="radio" name="mood" value={mood} />
+              <label>Great</label>
+            </div>
+            <div className="mood-row">
+              <div><img className="mood-image" src="/images/mood_6.png" alt="happy" /></div>
+              <input type="radio" name="mood" value={mood} />
+              <label>Happy</label>
+            </div>
+          </div>
+          <h2>What beer type are you?</h2>
+          
+          <div className="first-row">
+            <div className="mood-row">
+              <div><img className="mood-image" src="/images/mood_1.png" alt="happy" /></div>
+              <input type="radio" name="glass" value={mood} /*onChange={this.handleChange*//>
+              <label>Horrible</label>
+            </div>
+            <div className="mood-row">
+              <div><img className="mood-image" src="/images/mood_2.png" alt="happy" /></div>
+              <input type="radio" name="glass" value={mood} />
+              <label>Bad</label>
+            </div>
+            <div className="mood-row">
+              <div><img className="mood-image" src="/images/mood_3.png" alt="happy" /></div>
+              <input type="radio" name="glass" value={mood} />
+              <label>Sad</label>
+            </div>
+          </div>
+          <div className="first-row">
+            <div className="mood-row">
+              <div><img className="mood-image" src="/images/mood_4.png" alt="happy" /></div>
+              <input type="radio" name="glass" value={mood} />
+              <label>Okay</label>
+            </div>
+            <div className="mood-row">
+              <div><img className="mood-image" src="/images/mood_5.png" alt="happy" /></div>
+              <input type="radio" name="glass" value={mood} />
+              <label>Great</label>
+            </div>
+            <div className="mood-row">
+              <div><img className="mood-image" src="/images/mood_6.png" alt="happy" /></div>
+              <input type="radio" name="glass" value={mood} />
+              <label>Happy</label>
+            </div>
+          </div>
 
           <input type="submit" value="Get the result" className="beer-container beer-button beer-top" />
-          <p>Scared of the result? 
-            <Link to={"/home"}> Exit</Link>
+          <p>Scared to see the result? 
+            <Link to={"/home"}> Go back</Link>
           </p>
         </form>
       </div>

@@ -33,7 +33,7 @@ class App extends Component {
   render() {
     return (
       <AuthContext>
-        <div>
+        <div class="app">
           <div className="nav-bar">
             <Navbar />
           </div>

@@ -12,7 +12,7 @@ class Navbar extends Component {
         <h3>BEERIO</h3>
         {isLogged ? <div>
           <nav role="navigation">
-            <div id="menuToggle">
+            <div id="menuToggleRight">
               <input type="checkbox" />
               <img className="user-pic" src="/images/user.png" alt="about user" />
               <ul id="menu-user">
@@ -23,7 +23,7 @@ class Navbar extends Component {
           </nav>
         </div> : <div>
           <nav role="navigation">
-            <div id="menuToggle">
+            <div id="menuToggleRight">
               <input type="checkbox" />
               <img className="user-pic" src="/images/user.png" alt="about user" />
               <ul id="menu-user">
