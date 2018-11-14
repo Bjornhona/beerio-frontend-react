@@ -11,6 +11,7 @@ import Home from './pages/Home';
 import Beers from './pages/Beers';
 import Favorites from './pages/Favorites';
 import Recommended from './pages/Recommended';
+import NotFound from './pages/NotFound';
 import Beer from './pages/Beer';
 import Play from './pages/Play';
 
@@ -45,6 +46,7 @@ class App extends Component {
               <PrivateRoute path="/recommended" component={Recommended} />
               <PrivateRoute path="/beers/:id" component={Beer} />
               <PrivateRoute path="/play" component={Play} />
+              <Route component={NotFound} />     
             </Switch>
         </div>
       </AuthContext>

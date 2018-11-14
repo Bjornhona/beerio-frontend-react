@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import auth from '../lib/auth-service';
+import { Link } from 'react-router-dom';
 import { withAuth } from '../lib/authContext';
 
 class Login extends Component {
@@ -40,6 +41,9 @@ class Login extends Component {
             <label>Password:</label>
             <input type="password" name="password" value={password} onChange={this.handleChange} />
             <input type="submit" value="Log in" className="beer-container beer-button beer-top" />
+            <p>Don´t have an account yet? 
+              <Link to={"/signup"}> Sign up</Link>
+            </p>
           </div>
         </form>
       </div>

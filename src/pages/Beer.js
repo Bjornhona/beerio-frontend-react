@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withAuth } from '../lib/authContext';
 import { beerService } from '../lib/beerService';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class Beer extends Component {
 
@@ -10,7 +10,7 @@ class Beer extends Component {
       favorites: [],
       item: this.props.item,
       isFavorite: false,
-      fromFavorites: this.props.fromFavorites
+      redirect: false
   }
 
   componentDidMount() {
@@ -21,12 +21,18 @@ class Beer extends Component {
     const id = this.props.match.params.id;
     beerService.getBeer(id)
     .then((data) => {
+      console.log(data)
       this.setState({
         data: data
       })
     })
     .catch((error) => {
-      console.log(error);
+      if (error.response.data.code === "not-found") {
+        // redireccionar a not found component
+        this.setState({
+          redirect: true
+        })
+      }
     })
 
     beerService.getFavorites()
@@ -85,15 +91,18 @@ class Beer extends Component {
     })
   }
 
+  goBack = () => {
+    this.props.history.goBack();
+  }
+
   render() {
-    let { data, isFavorite, fromFavorites } = this.state;
+    let { data, isFavorite, redirect } = this.state;
     return (
+      redirect ? <Redirect to='/somewhere'/> :
       <div className="index-div section">
         <div className="beer-container beer-text">
           <div className="back-heart">
-            {fromFavorites ? 
-            <Link to='/favorites' className="menu-button back"><span role="img" aria-label="left-angle-bracket">〈</span></Link> : 
-            <Link to='/beers' className="menu-button back"><span role="img" aria-label="left-angle-bracket">〈</span></Link>}
+            <Link to='/favorites' className="menu-button back" onClick={this.goBack}><span role="img" aria-label="left-angle-bracket">〈</span></Link>
             <div className="heart" onClick={this.saveToFavorites}>{isFavorite ? <span role="img" aria-label="red-heart">❤️</span> : <span role="img" aria-label="black-heart">🖤</span>}</div>
           </div>
           {data.labels && <div className="label-img"><div><img className="big-label-img" src={data.labels.large} alt="No pic" /></div></div>}

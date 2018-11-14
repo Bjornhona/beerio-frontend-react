@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { withAuth } from '../lib/authContext';
 import BeerPeek from '../components/BeerPeek';
-import SearchBar from '../components/SearchBar';
 import { Link } from 'react-router-dom';
 import { beerService } from '../lib/beerService';
 
@@ -9,9 +8,10 @@ class Beers extends Component {
 
   state = {
     data: [],
+    inputValue: '',
     favorites: [],
     isFavorite: false,
-    fromFavorites: false
+    isLoading: true
   }
 
   componentDidMount() {
@@ -22,11 +22,15 @@ class Beers extends Component {
     beerService.getBeers()
     .then((data) => {
       this.setState({
+        isLoading: false,
         data: data
       })
     })
     .catch((error) => {
       console.log(error);
+      this.setState({
+        isLoading: false
+      })
     })
 
     beerService.getFavorites()
@@ -50,11 +54,34 @@ class Beers extends Component {
       }
     }
     
+  handleSearchInput = (event) => {
+    this.setState({
+      inputValue: event.target.value
+    })
+  }
+
+  // handleSearch = (data) => {
+  //   let { inputValue } = this.state;
+
+  //   data = data.filter((item) => {
+  //     let dataName = item.name.toUpperCase();
+  //     return dataName.includes(inputValue.toUpperCase())
+  //   })
+  // }
+  
   render() {
-    const { data, fromFavorites } = this.state;
+    let { data, inputValue, isLoading } = this.state;
+    // this.handleSearch(data);
+    
+    data = data.filter((item) => {
+      let dataName = item.name.toUpperCase();
+      return dataName.includes(inputValue.toUpperCase())
+    })
+
     return (
+      isLoading ? <div className="section"><h1>Loading...</h1></div> : 
       <div className="index-div section">
-        <SearchBar />
+        <div className="searchbar"><input type="text" name="name" value={inputValue} onChange={this.handleSearchInput} placeholder="Search" /></div>
         <div className="beers-title">
           <Link to='/home' className="menu-button back"><span role="img" aria-label="left-angle-bracket">〈</span></Link>
           <h4>Explore the worlds best beers</h4>
@@ -63,7 +90,7 @@ class Beers extends Component {
           this.handleFavorite(item);
           return (
             <div className="beer-container" key={item.id}>
-              <BeerPeek item={item} update={this.update} fromFavorites={fromFavorites} />
+              <BeerPeek item={item} update={this.update} />
             </div>
           )
         })}

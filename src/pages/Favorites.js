@@ -8,8 +8,7 @@ class Favorites extends Component {
 
   state = {
     favorites: [],
-    isFavorite: true,
-    fromFavorites: true
+    isFavorite: true
   }
 
   componentDidMount() {
@@ -30,7 +29,7 @@ class Favorites extends Component {
   }
 
   render() {
-    const { favorites, fromFavorites } = this.state;
+    const { favorites } = this.state;
     return (
       <div className="index-div section">
         <div className="beers-title">
@@ -40,7 +39,7 @@ class Favorites extends Component {
         {favorites.map((item) => {
           return (
             <div className="beer-container" key={item.id}>
-              <BeerPeekFav item={item} update={this.update} fromFavorites={fromFavorites} />
+              <BeerPeekFav item={item} update={this.update} />
             </div>
           )
         })}

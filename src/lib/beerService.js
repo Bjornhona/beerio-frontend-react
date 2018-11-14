@@ -1,3 +1,4 @@
+import { Redirect } from "react-router-dom"
 import axios from 'axios';
 
 class BeerService {
@@ -36,9 +37,6 @@ class BeerService {
   getBeer(id) {
     return this.beer.get(`/beers/${id}`)
     .then(({data}) => data)
-    .catch((error) => {
-      console.log(error);
-    })
   }
    
 }

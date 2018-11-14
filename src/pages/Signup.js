@@ -46,7 +46,7 @@ class Signup extends Component {
             <input type="password" name="password" value={password} onChange={this.handleChange} />
             <input type="submit" value="Sign up" className="beer-container beer-button beer-top" />
             <p>Already have account? 
-              <Link to={"/login"}> Login</Link>
+              <Link to={"/login"}> Log in</Link>
             </p>
           </form>
         </div>
