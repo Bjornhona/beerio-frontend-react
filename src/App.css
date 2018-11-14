@@ -478,6 +478,7 @@ img.beermix {
 .first-row {
   display: flex;
   justify-content: space-around;
+  align-items: center;
   padding: 15px;
 }
 
@@ -485,4 +486,8 @@ img.beermix {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.mood-page {
+  padding: 15px 0;
 }

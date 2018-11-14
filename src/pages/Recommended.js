@@ -8,10 +8,10 @@ class Recommended extends Component {
   state = {
       data: [],
       favorites: this.props.user.favorites,
-      // favorite: false,
       isFavorite: false,
       randomId: '',
-      randomIndex: 0
+      randomIndex: 0,
+      isLoading: true
   }
 
   componentDidMount() {
@@ -22,67 +22,25 @@ class Recommended extends Component {
     beerService.getBeers()
     .then((data) => {
       let randomIndex = Math.floor(Math.random() * data.length);
-      let favorites = this.props.user.favorites;
+      let { isFavorite, favorites } = this.state;
       
       data = data[randomIndex];
-      // if (favorites.includes(data)) {
-      //   this.setState({
-      //     isFavorite : true
-      //   })
-      // }
-      // favorites.find((element)=>{
-      //   return element.id === data.id
-      //   })
-      console.log(data, 'Aqui es la data del random')
+
+      isFavorite = favorites.find((favorite) => {
+        return favorite.id === data.id
+        })
+      this.setState({
+        isFavorite: isFavorite
+      })
+
       this.setState({
         data: data,
         randomIndex: randomIndex,
-      })
-
-      
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-
-    beerService.getFavorites()
-    .then((result) => {
-        let { isFavorite, favorites, data } = this.state;
-        console.log(favorites, 'These are my favorites');
-
-        favorites.find((favorite) => {
-          console.log(data, 'data.id');
-          console.log(favorite.id, 'favorite.id');
-
-          if (data.id === favorite.id) {
-            return isFavorite = true;
-          } else {
-            return isFavorite = false;
-          }
-        })
-        this.setState({
-          isFavorite: isFavorite
-        })
-        
-      this.setState({
-        favorites: result,
+        isLoading: false
       })
     })
     .catch((error) => {
       console.log(error);
-    })
-  }
-
-  handleFavorite = () => {
-    let favorites, randomIndex = this.state;
-    const favorite = this.state.favorites.find(favorite => {
-      return favorite.id === favorites[randomIndex].id;
-    });
-    if (favorite) {
-      this.favorite = true
-      }
-    this.setState({
-      favorite: favorite
     })
   }
 
@@ -105,8 +63,9 @@ class Recommended extends Component {
   }
 
   render() {
-    let { data, isFavorite } = this.state;
+    let { data, isFavorite, isLoading } = this.state;
     return (
+      isLoading ? <div className="index-div section"><h1>Loading...</h1></div> : 
       <div className="index-div section">
         <div className="beer-container beer-text">
           <div className="back-heart">
