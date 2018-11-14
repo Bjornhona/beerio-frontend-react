@@ -3,14 +3,13 @@ import { withAuth } from '../lib/authContext';
 import { beerService } from '../lib/beerService';
 import { Link } from 'react-router-dom';
 
-class Beer extends Component {
+class Recommended extends Component {
 
   state = {
       data: [],
       favorites: [],
-      item: this.props.item,
       isFavorite: false,
-      fromFavorites: this.props.fromFavorites
+      randomId: ''
   }
 
   componentDidMount() {
@@ -18,9 +17,11 @@ class Beer extends Component {
   }
 
   update = () => {
-    const id = this.props.match.params.id;
-    beerService.getBeer(id)
+    beerService.getBeers()
     .then((data) => {
+      let randomIndex = Math.floor(Math.random() * data.length);
+
+      data = data[randomIndex];
       this.setState({
         data: data
       })
@@ -31,9 +32,10 @@ class Beer extends Component {
 
     beerService.getFavorites()
     .then((result) => {
-        let isFavorite = this.state;
+        let isFavorite, data = this.state;
+
         result.find((favorite) => {
-          if (id === favorite.id) {
+          if (data.id === favorite.id) {
             return isFavorite = true;
           } else {
             return isFavorite = false;
@@ -42,7 +44,6 @@ class Beer extends Component {
         this.setState({
           isFavorite: isFavorite
         })
-
       this.setState({
         favorites: result,
       })
@@ -52,13 +53,14 @@ class Beer extends Component {
     })
   }
 
-  handleFavorite = (item) => {
+  handleFavorite = () => {
+    let favorites = this.state;
     const favorite = this.state.favorites.find(favorite => {
-      return favorite.id === item.id;
+      return favorite.id === favorites[3].id;
     });
 
     if (favorite) {
-      item.favorite = true
+      this.favorite = true
       }
 
     this.setState({
@@ -86,16 +88,15 @@ class Beer extends Component {
   }
 
   render() {
-    let { data, isFavorite, fromFavorites } = this.state;
+    let { data, isFavorite } = this.state;
     return (
       <div className="index-div section">
         <div className="beer-container beer-text">
           <div className="back-heart">
-            {fromFavorites ? 
-            <Link to='/favorites' className="menu-button back"><span role="img" aria-label="left-angle-bracket">〈</span></Link> : 
-            <Link to='/beers' className="menu-button back"><span role="img" aria-label="left-angle-bracket">〈</span></Link>}
+            <Link to='/home' className="menu-button back"><span role="img" aria-label="left-angle-bracket">〈</span></Link>
             <div className="heart" onClick={this.saveToFavorites}>{isFavorite ? <span role="img" aria-label="red-heart">❤️</span> : <span role="img" aria-label="black-heart">🖤</span>}</div>
           </div>
+          <h3>Our selected recommendation</h3>
           {data.labels && <div className="label-img"><div><img className="big-label-img" src={data.labels.large} alt="No pic" /></div></div>}
           <h1>{data.name}</h1>
           {data.style && <h5>{data.style.name}</h5>}
@@ -113,4 +114,4 @@ class Beer extends Component {
   }
 }
 
-export default withAuth(Beer);
+export default withAuth(Recommended);

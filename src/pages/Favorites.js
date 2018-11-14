@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import { withAuth } from '../lib/authContext';
 import { Link } from 'react-router-dom';
 import { beerService } from '../lib/beerService';
-import BeerPeek from '../components/BeerPeek';
+import BeerPeekFav from '../components/BeerPeekFav';
 
 class Favorites extends Component {
 
   state = {
     favorites: [],
-    id: '',
-    name: '',
-    isOrganic: '',
-    icon: '',
-    isFavorite: false
+    isFavorite: true,
+    fromFavorites: true
   }
 
   componentDidMount() {
@@ -22,12 +19,9 @@ class Favorites extends Component {
   update = () => {
     beerService.getFavorites()
     .then((result) => {
+
       this.setState({
-        favorites: result,
-        id: result.id,
-        name: result.name,
-        isOrganic: result.isOrganic,
-        icon: result.icon
+        favorites: result
       })
     })
     .catch((error) => {
@@ -36,7 +30,7 @@ class Favorites extends Component {
   }
 
   render() {
-    const { favorites, isFavorite } = this.state;
+    const { favorites, fromFavorites } = this.state;
     return (
       <div className="index-div section">
         <div className="beers-title">
@@ -46,7 +40,7 @@ class Favorites extends Component {
         {favorites.map((item) => {
           return (
             <div className="beer-container" key={item.id}>
-              <BeerPeek item={item} favorite={this.handleFavorite(item)} isFavorite={isFavorite} />
+              <BeerPeekFav item={item} update={this.update} fromFavorites={fromFavorites} />
             </div>
           )
         })}

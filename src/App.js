@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Beers from './pages/Beers';
 import Favorites from './pages/Favorites';
+import Recommended from './pages/Recommended';
 import Beer from './pages/Beer';
 import Play from './pages/Play';
 
@@ -41,6 +42,7 @@ class App extends Component {
               <PrivateRoute path="/home" component={Home} />
               <PrivateRoute exact path="/beers" component={Beers} />
               <PrivateRoute path="/favorites" component={Favorites} />
+              <PrivateRoute path="/recommended" component={Recommended} />
               <PrivateRoute path="/beers/:id" component={Beer} />
               <PrivateRoute path="/play" component={Play} />
             </Switch>

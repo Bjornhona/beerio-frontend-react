@@ -25,7 +25,7 @@ class Home extends Component {
             <FontAwesomeIcon icon="heart" className="fontawesome red" />
           </div>
         </Link>
-        <Link to="/random" className="beer-container beer-button nice-beer">
+        <Link to="/recommended" className="beer-container beer-button nice-beer">
           <div className="home-align">
             <div>
               <h2>RECOMMENDED</h2>

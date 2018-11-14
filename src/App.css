@@ -30,6 +30,10 @@ h1, h2, h3, h4, h5 {
   letter-spacing: 2px;
 }
 
+h1 {
+  line-height: 147%;
+}
+
 h2 {
   margin-bottom: 10px;
 }

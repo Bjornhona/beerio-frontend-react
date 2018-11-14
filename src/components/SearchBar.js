@@ -5,6 +5,10 @@ import React, { Component } from 'react';
 
 class SearchBar extends Component {
 
+  state = {
+    search: ''
+  }
+
   // saveToFavorites = () => {
   //   const { item } = this.props;
   //   auth.postFavorite({
@@ -18,10 +22,14 @@ class SearchBar extends Component {
   // }
 
   render () {
-    // const {item} = this.props;
+    const {search} = this.state;
     // item.isOrganic = 'Y' ? "Yes" : "No";
     return (
       <div className="beer-peek">
+        <form onSubmit={this.handleFormSubmit} className="signup">
+          <input type="text" name="username" value={search} onChange={this.handleChange}/>
+          <input type="submit" value="Search" className="beer-container beer-button beer-top" />
+        </form>
         {/* <div>{item.labels && <img src={item.labels.icon} alt="No pic" />}</div>
         <div>
           <h5>{item.name}</h5>
