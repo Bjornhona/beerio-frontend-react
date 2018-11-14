@@ -7,7 +7,12 @@ class Login extends Component {
   state = {
     username: "",
     password: "",
+    alert: ""
   }
+
+  // componentDidMount() {
+  //   this.props.history.push('/home');
+  // }
 
   handleFormSubmit = (event) => {
     event.preventDefault();
@@ -18,7 +23,31 @@ class Login extends Component {
       this.props.setUser(user)
       this.props.history.push('/home'); 
     })
-    .catch( error => console.log(error) )
+    .catch(error => {
+      console.log(error);
+      const { data } = error.response;
+      switch(data.error){
+        // case 'User or password invalid':
+        //   this.setState({
+        //     alert: 'invalid username'
+        //   });
+        //   break;
+        case 'not-found':
+          this.setState({
+            alert: 'Invalid username or password'
+          });
+          break;
+        case 'validation':
+          this.setState({
+            alert: 'Username or password can´t be empty'
+          });
+          break;
+        default:
+          this.setState({
+            alert: ''
+          })
+      }   
+    })
   }
 
   handleChange = (event) => {  
@@ -27,12 +56,12 @@ class Login extends Component {
   }
 
   render() {
-    const { username, password } = this.state;
+    const { username, password, alert } = this.state;
     return (
       <div className="index-div">
         <div className="section">
         <h2>Log in</h2>
-        <p>Welcome back, log in to enter our world of beers!</p>
+        <p>Welcome back, log in to enter the world of beers!</p>
         </div>
         <form onSubmit={this.handleFormSubmit}>
           <div className="section login">
@@ -46,6 +75,7 @@ class Login extends Component {
             </p>
           </div>
         </form>
+        { alert ? <div className="section alert"><h5>{alert}</h5></div> : <div></div>}
       </div>
     )
   }

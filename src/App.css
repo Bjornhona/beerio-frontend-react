@@ -359,6 +359,10 @@ img.beermix {
   margin-top: 15px;
 }
 
+.alert h5 {
+  color: #513e29;
+}
+
 /* ---- home ---- */
 
 .fontawesome {

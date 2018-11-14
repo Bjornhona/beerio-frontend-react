@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 
 import PrivateRoute from './components/PrivateRoute'
+import PublicRoute from './components/PublicRoute'
 import Navbar from './components/Navbar';
 import Index from './pages/Index';
 import Signup from './pages/Signup';
@@ -38,8 +39,8 @@ class App extends Component {
           </div>
             <Switch>
               <Route exact path="/" component={Index} />
-              <Route path="/signup" component={Signup} />
-              <Route path="/login" component={Login} />     
+              <PublicRoute path="/signup" component={Signup} />
+              <PublicRoute path="/login" component={Login} />     
               <PrivateRoute path="/home" component={Home} />
               <PrivateRoute exact path="/beers" component={Beers} />
               <PrivateRoute path="/favorites" component={Favorites} />

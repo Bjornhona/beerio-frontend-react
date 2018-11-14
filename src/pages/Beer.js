@@ -10,7 +10,8 @@ class Beer extends Component {
       favorites: [],
       item: this.props.item,
       isFavorite: false,
-      redirect: false
+      redirect: false,
+      isLoading: true
   }
 
   componentDidMount() {
@@ -21,16 +22,16 @@ class Beer extends Component {
     const id = this.props.match.params.id;
     beerService.getBeer(id)
     .then((data) => {
-      console.log(data)
       this.setState({
-        data: data
+        data: data,
+        isLoading: false
       })
     })
     .catch((error) => {
-      if (error.response.data.code === "not-found") {
-        // redireccionar a not found component
+      if (error.response.data.code === "not-found" || error.response.data.code === "unexpected" ) {
         this.setState({
-          redirect: true
+          redirect: true,
+          isLoading: false
         })
       }
     })
@@ -96,9 +97,10 @@ class Beer extends Component {
   }
 
   render() {
-    let { data, isFavorite, redirect } = this.state;
+    let { data, isFavorite, redirect, isLoading } = this.state;
     return (
-      redirect ? <Redirect to='/somewhere'/> :
+      isLoading ? <div className="index-div section"><h1>Loading...</h1></div> : 
+      redirect ? <Redirect to='/notfound'/> :
       <div className="index-div section">
         <div className="beer-container beer-text">
           <div className="back-heart">

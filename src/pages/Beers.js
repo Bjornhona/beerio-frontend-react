@@ -79,7 +79,7 @@ class Beers extends Component {
     })
 
     return (
-      isLoading ? <div className="section"><h1>Loading...</h1></div> : 
+      isLoading ? <div className="index-div section"><h1>Loading...</h1></div> : 
       <div className="index-div section">
         <div className="searchbar"><input type="text" name="name" value={inputValue} onChange={this.handleSearchInput} placeholder="Search" /></div>
         <div className="beers-title">

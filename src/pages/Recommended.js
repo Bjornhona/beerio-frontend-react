@@ -7,9 +7,11 @@ class Recommended extends Component {
 
   state = {
       data: [],
-      favorites: [],
+      favorites: this.props.user.favorites,
+      // favorite: false,
       isFavorite: false,
-      randomId: ''
+      randomId: '',
+      randomIndex: 0
   }
 
   componentDidMount() {
@@ -20,11 +22,24 @@ class Recommended extends Component {
     beerService.getBeers()
     .then((data) => {
       let randomIndex = Math.floor(Math.random() * data.length);
-
+      let favorites = this.props.user.favorites;
+      
       data = data[randomIndex];
+      // if (favorites.includes(data)) {
+      //   this.setState({
+      //     isFavorite : true
+      //   })
+      // }
+      // favorites.find((element)=>{
+      //   return element.id === data.id
+      //   })
+      console.log(data, 'Aqui es la data del random')
       this.setState({
-        data: data
+        data: data,
+        randomIndex: randomIndex,
       })
+
+      
     })
     .catch((error) => {
       console.log(error);
@@ -32,9 +47,13 @@ class Recommended extends Component {
 
     beerService.getFavorites()
     .then((result) => {
-        let isFavorite, data = this.state;
+        let { isFavorite, favorites, data } = this.state;
+        console.log(favorites, 'These are my favorites');
 
-        result.find((favorite) => {
+        favorites.find((favorite) => {
+          console.log(data, 'data.id');
+          console.log(favorite.id, 'favorite.id');
+
           if (data.id === favorite.id) {
             return isFavorite = true;
           } else {
@@ -44,6 +63,7 @@ class Recommended extends Component {
         this.setState({
           isFavorite: isFavorite
         })
+        
       this.setState({
         favorites: result,
       })
@@ -54,20 +74,17 @@ class Recommended extends Component {
   }
 
   handleFavorite = () => {
-    let favorites = this.state;
+    let favorites, randomIndex = this.state;
     const favorite = this.state.favorites.find(favorite => {
-      return favorite.id === favorites[3].id;
+      return favorite.id === favorites[randomIndex].id;
     });
-
     if (favorite) {
       this.favorite = true
       }
-
     this.setState({
       favorite: favorite
     })
-      
-    }
+  }
 
   saveToFavorites = () => {
     const { isFavorite } = this.state;

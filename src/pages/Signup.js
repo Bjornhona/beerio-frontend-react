@@ -8,6 +8,7 @@ class Signup extends Component {
   state = {
     username: "",
     password: "",
+    alert: ""
   };
 
   handleFormSubmit = (event) => {
@@ -24,7 +25,31 @@ class Signup extends Component {
         this.props.setUser(user);
         this.props.history.push('/home');
       })
-      .catch( error => console.log(error) )
+      .catch( error => {
+        console.log(error);
+        const { data } = error.response;
+        switch(data.error){
+          case 'empty':
+            this.setState({
+              alert: 'Username or password can´t be empty'
+            });
+            break;
+          case 'username-not-unique':
+            this.setState({
+              alert: 'User already exists'
+            });
+            break;
+          // case 'validation':
+          //   this.setState({
+          //     alert: 'Username or password can´t be empty.'
+          //   });
+          //   break;
+          default:
+            this.setState({
+              alert: ''
+            })
+        }   
+      })
   }
 
   handleChange = (event) => {  
@@ -33,7 +58,7 @@ class Signup extends Component {
   }
 
   render() {
-    const { username, password } = this.state;
+    const { username, password, alert } = this.state;
     return (
       <div className="index-div">
         <div className="section">
@@ -41,7 +66,7 @@ class Signup extends Component {
           <p>Become a part of this world of beers and sign up today!</p>
           <form onSubmit={this.handleFormSubmit} className="signup">
             <label>Username:</label>
-            <input type="text" name="username" value={username} onChange={this.handleChange}/>
+            <input type="text" name="username" value={username} onChange={this.handleChange} />
             <label>Password:</label>
             <input type="password" name="password" value={password} onChange={this.handleChange} />
             <input type="submit" value="Sign up" className="beer-container beer-button beer-top" />
@@ -49,6 +74,7 @@ class Signup extends Component {
               <Link to={"/login"}> Log in</Link>
             </p>
           </form>
+          { alert ? <div className="section alert"><h5>{alert}</h5></div> : <div></div>}
         </div>
       </div>
     )
