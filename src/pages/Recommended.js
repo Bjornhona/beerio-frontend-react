@@ -18,6 +18,10 @@ class Recommended extends Component {
     this.update();
   }
 
+  goBack = () => {
+    this.props.history.goBack();
+  }
+
   update = () => {
     beerService.getBeers()
     .then((data) => {
@@ -69,7 +73,7 @@ class Recommended extends Component {
       <div className="index-div section">
         <div className="beer-container beer-text">
           <div className="back-heart">
-            <Link to='/home' className="menu-button back"><span role="img" aria-label="left-angle-bracket">〈</span></Link>
+            <Link to='/home' className="menu-button back" onClick={this.goBack}><span role="img" aria-label="left-angle-bracket">〈</span></Link>
             <div className="heart" onClick={this.saveToFavorites}>{isFavorite ? <span role="img" aria-label="red-heart">❤️</span> : <span role="img" aria-label="black-heart">🖤</span>}</div>
           </div>
           <h3>Our selected recommendation</h3>
