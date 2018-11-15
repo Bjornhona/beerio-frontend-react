@@ -10,10 +10,6 @@ class Login extends Component {
     alert: ""
   }
 
-  // componentDidMount() {
-  //   this.props.history.push('/home');
-  // }
-
   handleFormSubmit = (event) => {
     event.preventDefault();
     const { username, password } = this.state
@@ -24,14 +20,9 @@ class Login extends Component {
       this.props.history.push('/home'); 
     })
     .catch(error => {
-      console.log(error);
+      console.error('Error');
       const { data } = error.response;
       switch(data.error){
-        // case 'User or password invalid':
-        //   this.setState({
-        //     alert: 'invalid username'
-        //   });
-        //   break;
         case 'not-found':
           this.setState({
             alert: 'Invalid username or password'

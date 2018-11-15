@@ -40,7 +40,7 @@ class Recommended extends Component {
       })
     })
     .catch((error) => {
-      console.log(error);
+      console.error('Error');
     })
   }
 
@@ -58,7 +58,7 @@ class Recommended extends Component {
       this.setState({ isFavorite: !isFavorite })
     })
     .catch((error) => {
-      console.log(error);
+      console.error('Error');
     })
   }
 

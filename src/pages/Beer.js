@@ -55,7 +55,7 @@ class Beer extends Component {
       })
     })
     .catch((error) => {
-      console.log(error);
+      console.error('Error');
     })
   }
 
@@ -88,7 +88,7 @@ class Beer extends Component {
       this.setState({ isFavorite: !isFavorite })
     })
     .catch((error) => {
-      console.log(error);
+      console.error('Error');
     })
   }
 

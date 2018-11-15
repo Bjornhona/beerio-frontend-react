@@ -13,7 +13,7 @@ class BeerService {
     return this.beer.get('/beers')
     .then(({data}) => data)
     .catch((error) => {
-      console.log(error);
+      console.error('Error');
     })
   }
 
@@ -21,7 +21,7 @@ class BeerService {
     return this.beer.get('/beers/favorites')
     .then(({data}) => data)
     .catch((error) => {
-      console.log(error);
+      console.error('Error');
     })
   }
 
@@ -29,7 +29,7 @@ class BeerService {
     return this.beer.put('/beers', data)
     .then(({data}) => data)
     .catch((error) => {
-      console.log(error);
+      console.error('Error');
     })
   }
 

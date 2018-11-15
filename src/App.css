@@ -436,13 +436,7 @@ img.beermix {
 
 .heart {
   font-size: 30px;
-  color: grey;
   padding: 15px;
-}
-
-.heart:hover {
-  color: red;
-  cursor: pointer;
 }
 
 .back-heart {

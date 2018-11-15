@@ -26,7 +26,7 @@ class Signup extends Component {
         this.props.history.push('/home');
       })
       .catch( error => {
-        console.log(error);
+        console.error('Error');
         const { data } = error.response;
         switch(data.error){
           case 'empty':
@@ -39,11 +39,6 @@ class Signup extends Component {
               alert: 'User already exists'
             });
             break;
-          // case 'validation':
-          //   this.setState({
-          //     alert: 'Username or password can´t be empty.'
-          //   });
-          //   break;
           default:
             this.setState({
               alert: ''

@@ -21,7 +21,7 @@ class BeerPeek extends Component {
       this.setState({ isFavorite: !isFavorite })
     })
     .catch((error) => {
-      console.log(error);
+      console.error('Error');
     })
   }
 

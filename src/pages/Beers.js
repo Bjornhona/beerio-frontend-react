@@ -27,7 +27,7 @@ class Beers extends Component {
       })
     })
     .catch((error) => {
-      console.log(error);
+      console.error('Error');
       this.setState({
         isLoading: false
       })
@@ -40,7 +40,7 @@ class Beers extends Component {
       })
     })
     .catch((error) => {
-      console.log(error);
+      console.error('Error');
     })
   }
 
@@ -59,20 +59,10 @@ class Beers extends Component {
       inputValue: event.target.value
     })
   }
-
-  // handleSearch = (data) => {
-  //   let { inputValue } = this.state;
-
-  //   data = data.filter((item) => {
-  //     let dataName = item.name.toUpperCase();
-  //     return dataName.includes(inputValue.toUpperCase())
-  //   })
-  // }
   
   render() {
     let { data, inputValue, isLoading } = this.state;
-    // this.handleSearch(data);
-    
+        
     data = data.filter((item) => {
       let dataName = item.name.toUpperCase();
       return dataName.includes(inputValue.toUpperCase())

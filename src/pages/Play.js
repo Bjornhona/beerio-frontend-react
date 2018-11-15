@@ -9,10 +9,6 @@ class Play extends Component {
     type: ''
   }
 
-  handleFormSubmit = () => {
-    this.props.history.push('/recommended');
-  }
-
   render() {
     const { mood, type } = this.state;
     return (
@@ -27,7 +23,7 @@ class Play extends Component {
             <div className="first-row">
               <div className="mood-row">
                 <div><img className="mood-image" src="/images/mood_1.png" alt="happy" /></div>
-                <input type="radio" name="mood" value={mood} /*onChange={this.handleChange*//>
+                <input type="radio" name="mood" value={mood} required />
                 <label>Horrible</label>
               </div>
               <div className="mood-row">
@@ -65,7 +61,7 @@ class Play extends Component {
             <div className="first-row">
               <div className="mood-row">
                 <div><img className="mood-image" src="/images/gourmand.png" alt="gourmand" /></div>
-                <input type="radio" name="glass" value={type} />
+                <input type="radio" name="glass" value={type} required />
                 <label>Gourmand</label>
               </div>
               <div className="mood-row">
@@ -98,7 +94,7 @@ class Play extends Component {
             </div>
           </div>
 
-          <input type="submit" value="Get the result" className="beer-container beer-button beer-top" />
+          <Link to={"/recommended"} className="beer-container beer-button beer-top" >Get the result</Link>
           <p>Scared to see the result? 
             <Link to={"/home"}> Go back</Link>
           </p>

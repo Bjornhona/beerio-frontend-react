@@ -24,7 +24,7 @@ class Favorites extends Component {
       })
     })
     .catch((error) => {
-      console.log(error);
+      console.error('Error');
     })
   }
 
