@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { beerService } from '../lib/beerService';
+import './BeersContainer.css';
 
-class BeerPeek extends Component {
+class BeersContainer extends Component {
 
   state = {
     isFavorite: this.props.item.favorite
@@ -30,8 +31,8 @@ class BeerPeek extends Component {
     const { isFavorite } = this.state;
     item.isOrganic = 'Y' ? "Yes" : "No";
     return (
-      <div className="beer-peek">
-        <div className="beer-peek-img">{item.labels && <img src={item.labels.icon} alt="No pic" />}</div>
+      <div className="beers-container">
+        <div className="beers-img">{item.labels && <img src={item.labels.icon} alt="No pic" />}</div>
         <div className="beer-name">
           <h5>{item.name}</h5>
           {item.style && <p>{item.style.category.name}</p>}
@@ -48,4 +49,4 @@ class BeerPeek extends Component {
   }
 }
   
-  export default BeerPeek;
+  export default BeersContainer;

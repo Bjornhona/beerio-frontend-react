@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { withAuth } from '../lib/authContext';
-import BeerPeek from '../components/BeerPeek';
 import { Link } from 'react-router-dom';
 import { beerService } from '../lib/beerService';
+import BeersContainer from '../components/BeersContainer';
+import './Beers.css';
 
 class Beers extends Component {
 
@@ -69,7 +70,7 @@ class Beers extends Component {
     })
 
     return (
-      isLoading ? <div className="index-div section"><h1>Loading...</h1></div> : 
+      isLoading ? <div className="section"><h1>Loading...</h1></div> : 
       <div className="index-div section">
         <div className="searchbar"><input type="text" name="name" value={inputValue} onChange={this.handleSearchInput} placeholder="Search" /></div>
         <div className="beers-title">
@@ -79,9 +80,7 @@ class Beers extends Component {
         {data.map((item) => {
           this.handleFavorite(item);
           return (
-            <div className="beer-container" key={item.id}>
-              <BeerPeek item={item} update={this.update} />
-            </div>
+            <BeersContainer key={item.id} item={item} update={this.update} />
           )
         })}
       </div>

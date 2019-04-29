@@ -155,9 +155,9 @@ input[type=submit]:hover {
     padding: 0 30px;
   }
 
-  .beer-peek-img img {
+  /* .beer-peek-img img {
     padding: 30px;
-  }
+  } */
 
   .organic-heart {
     display: flex;
@@ -178,9 +178,9 @@ input[type=submit]:hover {
     padding: 0 20px;
   }
 
-  .beer-peek-img {
+  /* .beer-peek-img {
     padding: 20px;
-  }
+  } */
 }
 
 @media (max-width: 479px) {
@@ -205,9 +205,9 @@ input[type=submit]:hover {
     padding: 0 10px;
   }
 
-  .beer-peek-img img {
+  /* .beer-peek-img img {
     padding: 5px;
-  }
+  } */
 }
 
 /* ---- burger menu ---- */
@@ -409,12 +409,12 @@ div.navbar {
   width: 100%;
 }
 
-.beer-peek {
+/* .beer-peek {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-}
+} */
 
 .heart {
   font-size: 30px;
