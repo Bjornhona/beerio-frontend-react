@@ -12,6 +12,12 @@
   transition-duration: 1s;
 }
 
+.home-container:hover {
+  color: white;
+  background-image: linear-gradient(#d2bb93, #eee6da);
+  transition-duration: 0s;
+}
+
 .home-icon {
   display: flex;
   align-items: center;

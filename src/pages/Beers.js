@@ -71,11 +71,12 @@ class Beers extends Component {
 
     return (
       isLoading ? <div className="section"><h1>Loading...</h1></div> : 
-      <div className="index-div section">
+      <div className="beers-div section">
         <div className="searchbar"><input type="text" name="name" value={inputValue} onChange={this.handleSearchInput} placeholder="Search" /></div>
         <div className="beers-title">
-          <Link to='/home' className="menu-button back"><span role="img" aria-label="left-angle-bracket">〈</span></Link>
+          <Link to='/home' className="back-sign"><span role="img" aria-label="left-angle-bracket">〈</span></Link>
           <h4>Explore the worlds best beers</h4>
+          <span></span>
         </div>
         {data.map((item) => {
           this.handleFavorite(item);

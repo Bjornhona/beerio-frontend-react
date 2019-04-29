@@ -103,7 +103,7 @@ input[type=submit]:hover {
   background-image: linear-gradient(#99804e, #d2bb93, #eee6da);
 } */
 
-.back {
+/* .back {
   padding-right: 20px;
 }
 
@@ -114,11 +114,11 @@ input[type=submit]:hover {
   text-decoration: none;
   display: flex;
   align-items: center;
-}
+} */
 
-.heart-div {
+/* .heart-div {
   display: flex;
-}
+} */
 
 .section {
   margin: 40px;

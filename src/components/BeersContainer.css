@@ -12,8 +12,18 @@
   transition-duration: 1s;
 }
 
+.beers-container:hover {
+  color: white;
+  background-image: linear-gradient(#d2bb93, #eee6da);
+  transition-duration: 0s;
+}
+
 .beers-img img {
   padding: 30px;
+}
+
+.heart-div {
+  cursor: default;
 }
 
 @media (max-width: 479px) {

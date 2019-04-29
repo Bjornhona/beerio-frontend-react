@@ -9,9 +9,11 @@ class BeersContainer extends Component {
     isFavorite: this.props.item.favorite
   }
 
-  saveToFavorites = () => {
+  saveToFavorites = (e) => {
+    e.preventDefault();   // stops default link
     const { item } = this.props;
     const { isFavorite } = this.state;
+    
     beerService.postFavorite({
       id: item.id,
       name: item.name,
@@ -24,6 +26,7 @@ class BeersContainer extends Component {
     .catch((error) => {
       console.error('Error');
     })
+    
   }
 
   render () {
@@ -31,7 +34,7 @@ class BeersContainer extends Component {
     const { isFavorite } = this.state;
     item.isOrganic = 'Y' ? "Yes" : "No";
     return (
-      <div className="beers-container">
+      <Link to={`/beers/${item.id}`} className='beers-container'>
         <div className="beers-img">{item.labels && <img src={item.labels.icon} alt="No pic" />}</div>
         <div className="beer-name">
           <h5>{item.name}</h5>
@@ -39,12 +42,12 @@ class BeersContainer extends Component {
         </div>
         <div className="organic-heart">
           <div className="organic"><p><strong>Organic: </strong>{item.isOrganic}</p></div>
-          <div className="heart-div">
-            <div className="heart" onClick={this.saveToFavorites}>{isFavorite ? <span role="img" aria-label="red-heart">❤️</span> : <span role="img" aria-label="black-heart">🖤</span>}</div>
-            <Link to={`/beers/${item.id}`} className="menu-button"><span role="img" aria-label="right-angle-bracket">〉</span></Link>
+          <div className="heart-div" onClick={this.saveToFavorites}>
+            <div className="heart">{isFavorite ? <span role="img" aria-label="red-heart">❤️</span> : <span role="img" aria-label="black-heart">🖤</span>}</div>
+            {/* <Link to={`/beers/${item.id}`} className="menu-button"><span role="img" aria-label="right-angle-bracket">〉</span></Link> */}
           </div>
         </div>
-      </div>
+      </Link>
     )
   }
 }
