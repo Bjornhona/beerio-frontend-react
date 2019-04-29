@@ -21,6 +21,7 @@ import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 
 import AuthContext from './lib/authContext';
 
@@ -28,6 +29,7 @@ library.add(faPlayCircle);
 library.add(faSearch);
 library.add(faHeart);
 library.add(faStar);
+library.add(faThumbsUp);
 
 class App extends Component {
   render() {
