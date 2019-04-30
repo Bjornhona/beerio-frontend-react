@@ -10,7 +10,7 @@ class BeersContainer extends Component {
   }
 
   saveToFavorites = (e) => {
-    e.preventDefault();   // stops default link
+    e.preventDefault();   // stops default link to next page in container
     const { item } = this.props;
     const { isFavorite } = this.state;
     
@@ -30,22 +30,24 @@ class BeersContainer extends Component {
   }
 
   render () {
-    const {item} = this.props;
+    const { item } = this.props;
     const { isFavorite } = this.state;
     item.isOrganic = 'Y' ? "Yes" : "No";
     return (
       <Link to={`/beers/${item.id}`} className='beers-container'>
-        <div className="beers-img">{item.labels && <img src={item.labels.icon} alt="No pic" />}</div>
-        <div className="beer-name">
-          <h5>{item.name}</h5>
-          {item.style && <p>{item.style.category.name}</p>}
+        <div className='img-name-div'>
+          <div className="beers-img">{item.labels && <img src={item.labels.icon} alt="No pic" />}</div>
+          <div className="beer-name">
+            <h5>{item.name}</h5>
+            {item.style && <p>{item.style.category.name}</p>}
+          </div>
         </div>
         <div className="organic-heart">
-          <div className="organic"><p><strong>Organic: </strong>{item.isOrganic}</p></div>
-          <div className="heart-div" onClick={this.saveToFavorites}>
-            <div className="heart">{isFavorite ? <span role="img" aria-label="red-heart">❤️</span> : <span role="img" aria-label="black-heart">🖤</span>}</div>
-            {/* <Link to={`/beers/${item.id}`} className="menu-button"><span role="img" aria-label="right-angle-bracket">〉</span></Link> */}
+          <div className="heart-div" >
+            {isFavorite ? <span role="img" className="heart" onClick={this.saveToFavorites} aria-label="red-heart">❤️</span> : <span role="img" className="heart" aria-label="black-heart" onClick={this.saveToFavorites}>🖤</span>}
+            <span role="img" className="arrow" aria-label="right-angle-bracket">〉</span>
           </div>
+          <div className="organic"><p><strong>Organic: </strong>{item.isOrganic}</p></div>
         </div>
       </Link>
     )

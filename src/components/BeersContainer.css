@@ -22,8 +22,31 @@
   padding: 30px;
 }
 
+.img-name-div {
+  display: flex;
+  align-items: center;
+}
+
 .heart-div {
+  text-align: right;
+  margin: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.heart {
   cursor: default;
+  font-size: 30px;
+  padding: 15px 15px 15px 0;
+}
+
+.arrow {
+  font-size: 30px;
+  padding: 15px 0 15px 0;
+}
+
+.organic-heart {
+  padding-top: 15px;
 }
 
 @media (max-width: 479px) {

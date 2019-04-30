@@ -12,8 +12,8 @@
 }
 
 img.beermix {
-  padding: 40px 0;
+  padding: 40px 0 0 0;
   margin: 0 auto;
   display: flex;
-  width: 100%;
+  width: 75%;
 }
