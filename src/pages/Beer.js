@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withAuth } from '../lib/authContext';
 import { beerService } from '../lib/beerService';
 import { Link, Redirect } from 'react-router-dom';
+import './Beer.css';
 
 class Beer extends Component {
 
@@ -101,25 +102,25 @@ class Beer extends Component {
     return (
       isLoading ? <div className="index-div section"><h1>Loading...</h1></div> : 
       redirect ? <Redirect to='/notfound'/> :
-      <div className="index-div section">
-        <div className="beer-container beer-text">
-          <div className="back-heart">
-            <Link to='/favorites' className="menu-button back" onClick={this.goBack}><span role="img" aria-label="left-angle-bracket">〈</span></Link>
-            <div className="heart" onClick={this.saveToFavorites}>{isFavorite ? <span role="img" aria-label="red-heart">❤️</span> : <span role="img" aria-label="black-heart">🖤</span>}</div>
-          </div>
-          {data.labels && <div className="label-img"><div><img className="big-label-img" src={data.labels.large} alt="No pic" /></div></div>}
-          <h1>{data.name}</h1>
-          {data.style && <h5>{data.style.name}</h5>}
-          {data.style && <h6>{data.style.category.name}</h6>}
-          {data.style && <p>{data.style.year}</p>}
-          {data.style && <p>{data.style.description}</p>}
-          <div className="beer-info">
-            <div><strong>Abv: </strong>{data.abv}%</div>
-            <div><strong>Ibu: </strong>{data.style && data.style.ibuMax}</div>
-            <div><strong>Organic Beer:</strong> {data.isOrganic}</div>
+        <div className="index-div section">
+          <div className="beer-container beer-text">
+            <div className="back-heart">
+              <Link to='/favorites' className="menu-button back" onClick={this.goBack}><span role="img" aria-label="left-angle-bracket">〈</span></Link>
+              <div className="heart" onClick={this.saveToFavorites}>{isFavorite ? <span role="img" aria-label="red-heart">❤️</span> : <span role="img" aria-label="black-heart">🖤</span>}</div>
+            </div>
+            {data.labels && <div className="label-img"><div><img className="big-label-img" src={data.labels.large} alt="No pic" /></div></div>}
+            <h1>{data.name}</h1>
+            {data.style && <h5>{data.style.name}</h5>}
+            {data.style && <h6>{data.style.category.name}</h6>}
+            {data.style && <p>{data.style.year}</p>}
+            {data.style && <p>{data.style.description}</p>}
+            <div className="beer-info">
+              <div><strong>Abv: </strong>{data.abv}%</div>
+              <div><strong>Ibu: </strong>{data.style && data.style.ibuMax}</div>
+              <div><strong>Organic Beer:</strong> {data.isOrganic}</div>
+            </div>
           </div>
         </div>
-      </div>
     )
   }
 }

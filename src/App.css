@@ -85,11 +85,11 @@ input[type=submit]:hover {
   flex-direction: column;
 }
 
-.beer-info {
+/* .beer-info {
   display: flex;
   justify-content: space-between;
   padding: 15px 0;
-}
+} */
 
 /* .beer-button {
   font-weight: 600;
@@ -427,7 +427,7 @@ div.navbar {
   padding-top: 10px;
 } */
 
-.label-img {
+/* .label-img {
   display: flex;
   justify-content: center;
   padding-bottom: 30px;
@@ -435,7 +435,7 @@ div.navbar {
 
 .big-label-img {
   width: 100%;
-}
+} */
 
 .beer-name, .organic {
   padding: 15px;
