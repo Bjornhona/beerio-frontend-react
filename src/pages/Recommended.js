@@ -2,15 +2,15 @@ import React, { Component } from 'react';
 import { withAuth } from '../lib/authContext';
 import { beerService } from '../lib/beerService';
 import { Link } from 'react-router-dom';
+import Heart from '../components/Heart';
 
 class Recommended extends Component {
 
   state = {
-      data: [],
-      favorites: this.props.user.favorites,
+      item: [],
+      favorites: false,
       isFavorite: false,
       randomId: '',
-      randomIndex: 0,
       isLoading: true
   }
 
@@ -21,41 +21,40 @@ class Recommended extends Component {
   update = () => {
     beerService.getBeers()
     .then((data) => {
-      let randomIndex = Math.floor(Math.random() * data.length);
-      let { isFavorite, favorites } = this.state;
+      const randomIndex = Math.floor(Math.random() * data.length);
       
-      data = data[randomIndex];
+      const item = data[randomIndex];
+      const randomId = item.id;
 
-      isFavorite = favorites.find((favorite) => {
-        return favorite.id === data.id
+      
+      this.setState({
+        item: item,
+        isLoading: false,
+        randomId: randomId
+      })
+
+      beerService.getFavorites()
+      .then((favorites) => {
+        console.log(favorites)
+        console.log(item)
+
+        favorites.find(favorite => {
+          return favorite.id === item.id
         })
-      this.setState({
-        isFavorite: isFavorite
+        const found = favorites.find((favorite) => {
+            return favorite.id === item.id
+          })
+
+        if (found) {
+          item.favorite = true;
+          
+          this.setState({
+            isFavorite: item.favorite
+          })
+        }
+        
       })
 
-      this.setState({
-        data: data,
-        randomIndex: randomIndex,
-        isLoading: false
-      })
-    })
-    .catch((error) => {
-      console.error('Error');
-    })
-  }
-
-  saveToFavorites = () => {
-    const { isFavorite } = this.state;
-    const favorite = this.state;
-    
-    beerService.postFavorite({
-      id: favorite.data.id,
-      name: favorite.data.name,
-      isOrganic: favorite.data.isOrganic,
-      icon: favorite.data.labels && favorite.data.labels.icon
-    })
-    .then(() => {
-      this.setState({ isFavorite: !isFavorite })
     })
     .catch((error) => {
       console.error('Error');
@@ -63,26 +62,30 @@ class Recommended extends Component {
   }
 
   render() {
-    let { data, isFavorite, isLoading } = this.state;
+    let { item, isFavorite, isLoading } = this.state;
+    const icon = item.labels && item.labels.icon;
+    const style = item.style && item.style.category.name;
+    console.log(isFavorite);
+    // this.handleFavorite(item);
     return (
       isLoading ? <div className="index-div section"><h1>Loading...</h1></div> : 
       <div className="index-div section">
         <div className="beer-container beer-text">
           <div className="back-heart">
             <Link to='/home' className="menu-button back"><span role="img" aria-label="left-angle-bracket">〈</span></Link>
-            <div className="heart" onClick={this.saveToFavorites}>{isFavorite ? <span role="img" aria-label="red-heart">❤️</span> : <span role="img" aria-label="black-heart">🖤</span>}</div>
+            <Heart item={item} icon={icon} style={style} />
           </div>
           <h3>Our selected recommendation</h3>
-          {data.labels && <div className="label-img"><div><img className="big-label-img" src={data.labels.large} alt="No pic" /></div></div>}
-          <h1>{data.name}</h1>
-          {data.style && <h5>{data.style.name}</h5>}
-          {data.style && <h6>{data.style.category.name}</h6>}
-          {data.style && <p>{data.style.year}</p>}
-          {data.style && <p>{data.style.description}</p>}
+          {item.labels && <div className="label-img"><div><img className="big-label-img" src={item.labels.large} alt="No pic" /></div></div>}
+          <h1>{item.name}</h1>
+          {item.style && <h5>{item.style.name}</h5>}
+          {item.style && <h6>{item.style.category.name}</h6>}
+          {item.style && <p>{item.style.year}</p>}
+          {item.style && <p>{item.style.description}</p>}
           <div className="beer-info">
-            <div><strong>Abv: </strong>{data.abv}%</div>
-            <div><strong>Ibu: </strong>{data.style && data.style.ibuMax}</div>
-            <div><strong>Organic Beer:</strong> {data.isOrganic}</div>
+            <div><strong>Abv: </strong>{item.abv}%</div>
+            <div><strong>Ibu: </strong>{item.style && item.style.ibuMax}</div>
+            <div><strong>Organic Beer:</strong> {item.isOrganic}</div>
           </div>
         </div>
       </div>

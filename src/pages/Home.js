@@ -4,6 +4,7 @@ import HomeContainer from '../components/HomeContainer';
 import './Home.css';
 
 class Home extends Component {
+
   render() {
     return (
       <div className="home-div section">

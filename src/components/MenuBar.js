@@ -14,8 +14,9 @@ class MenuBar extends Component {
             <span></span>
             <ul id="menu">
               <Link to="/home" className="link"><li>Home</li></Link>
-              <Link to="/beers" className="link"><li>Beers</li></Link>
+              <Link to="/beers" className="link"><li>Explore</li></Link>
               <Link to="/favorites" className="link"><li>Favorites</li></Link>
+              <Link to="/recommended" className="link"><li>Recommended</li></Link>
               <Link to="/play" className="link"><li>Play</li></Link>
             </ul>
           </div>

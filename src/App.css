@@ -32,6 +32,7 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
+  font-size: 32px;
   line-height: 147%;
 }
 
@@ -39,8 +40,21 @@ h2 {
   margin-bottom: 10px;
 }
 
+h3 {
+  font-size: 19px;
+}
+
 h4 {
+  font-size: 16px;
   margin-bottom: 0;
+}
+
+h5 {
+  font-size: 14px;
+}
+
+h6 {
+  font-size: 12px;
 }
 
 p {
@@ -80,10 +94,10 @@ input[type=submit]:hover {
 }
 
 /* ---- components ---- */
-.beer-text {
+/* .beer-text {
   display: flex;
   flex-direction: column;
-}
+} */
 
 /* .beer-info {
   display: flex;
@@ -121,7 +135,7 @@ input[type=submit]:hover {
 } */
 
 .section {
-  margin: 40px;
+  margin: 30px;
 }
 
 /* ---- layout ---- */
@@ -151,9 +165,9 @@ input[type=submit]:hover {
     width: 50px; /* Här vill jag ha en annan meny!*/
   }
 
-  .menu-button span {
+  /* .menu-button span {
     padding: 0 30px;
-  }
+  } */
 
   /* .beer-peek-img img {
     padding: 30px;
@@ -174,9 +188,9 @@ input[type=submit]:hover {
     width: 50px;
   }
 
-  .menu-button span {
+  /* .menu-button span {
     padding: 0 20px;
-  }
+  } */
 
   /* .beer-peek-img {
     padding: 20px;
@@ -201,9 +215,9 @@ input[type=submit]:hover {
     margin: 0 7px;
   }
 
-  .menu-button span {
+  /* .menu-button span {
     padding: 0 10px;
-  }
+  } */
 
   /* .beer-peek-img img {
     padding: 5px;

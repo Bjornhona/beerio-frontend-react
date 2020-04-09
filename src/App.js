@@ -39,18 +39,18 @@ class App extends Component {
           <div className="nav-bar">
             <Navbar />
           </div>
-            <Switch>
-              <Route exact path="/" component={Index} />
-              <PublicRoute path="/signup" component={Signup} />
-              <PublicRoute path="/login" component={Login} />     
-              <PrivateRoute path="/home" component={Home} />
-              <PrivateRoute exact path="/beers" component={Beers} />
-              <PrivateRoute path="/favorites" component={Favorites} />
-              <PrivateRoute path="/recommended" component={Recommended} />
-              <PrivateRoute path="/beers/:id" component={Beer} />
-              <PrivateRoute path="/play" component={Play} />
-              <Route component={NotFound} />     
-            </Switch>
+          <Switch>
+            <Route exact path="/" component={Index} />
+            <PublicRoute path="/signup" component={Signup} />
+            <PublicRoute path="/login" component={Login} />     
+            <PrivateRoute path="/home" component={Home} />
+            <PrivateRoute exact path="/beers" component={Beers} />
+            <PrivateRoute path="/favorites" component={Favorites} />
+            <PrivateRoute path="/recommended" component={Recommended} />
+            <PrivateRoute path="/beers/:id" component={Beer} />
+            <PrivateRoute path="/play" component={Play} />
+            <Route component={NotFound} />     
+          </Switch>
         </div>
       </AuthContext>
     )

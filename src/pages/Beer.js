@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withAuth } from '../lib/authContext';
 import { beerService } from '../lib/beerService';
 import { Link, Redirect } from 'react-router-dom';
+import Heart from '../components/Heart';
 import './Beer.css';
 
 class Beer extends Component {
@@ -60,38 +61,39 @@ class Beer extends Component {
     })
   }
 
-  handleFavorite = (item) => {
-    const favorite = this.state.favorites.find(favorite => {
-      return favorite.id === item.id;
-    });
+  // handleFavorite = (item) => {
+  //   const favorite = this.state.favorites.find(favorite => {
+  //     return favorite.id === item.id;
+  //   });
 
-    if (favorite) {
-      item.favorite = true
-      }
+  //   if (favorite) {
+  //     item.favorite = true
+  //     }
 
-    this.setState({
-      favorite: favorite
-    })
+  //   this.setState({
+  //     favorite: favorite
+  //   })
       
-    }
+  //   }
 
-  saveToFavorites = () => {
-    const { isFavorite } = this.state;
-    const favorite = this.state;
+  // saveToFavorites = () => {
+  //   const { isFavorite } = this.state;
+  //   const favorite = this.state;
     
-    beerService.postFavorite({
-      id: favorite.data.id,
-      name: favorite.data.name,
-      isOrganic: favorite.data.isOrganic,
-      icon: favorite.data.labels && favorite.data.labels.icon
-    })
-    .then(() => {
-      this.setState({ isFavorite: !isFavorite })
-    })
-    .catch((error) => {
-      console.error('Error');
-    })
-  }
+  //   beerService.postFavorite({
+  //     id: favorite.data.id,
+  //     name: favorite.data.name,
+  //     isOrganic: favorite.data.isOrganic,
+  //     icon: favorite.data.labels && favorite.data.labels.icon,
+  //     style: favorite.data.style && favorite.data.style.category.name
+  //   })
+  //   .then(() => {
+  //     this.setState({ isFavorite: !isFavorite })
+  //   })
+  //   .catch((error) => {
+  //     console.error('Error');
+  //   })
+  // }
 
   goBack = () => {
     this.props.history.goBack();
@@ -99,14 +101,16 @@ class Beer extends Component {
 
   render() {
     let { data, isFavorite, redirect, isLoading } = this.state;
+    const icon = data.labels && data.labels.icon;
+    const style = data.style && data.style.category.name;
     return (
-      isLoading ? <div className="index-div section"><h1>Loading...</h1></div> : 
+      isLoading ? <div className="section"><h1>Loading...</h1></div> : 
       redirect ? <Redirect to='/notfound'/> :
-        <div className="index-div section">
-          <div className="beer-container beer-text">
+        <div className="section">
+          <div className="beer-container">
             <div className="back-heart">
-              <Link to='/favorites' className="menu-button back" onClick={this.goBack}><span role="img" aria-label="left-angle-bracket">〈</span></Link>
-              <div className="heart" onClick={this.saveToFavorites}>{isFavorite ? <span role="img" aria-label="red-heart">❤️</span> : <span role="img" aria-label="black-heart">🖤</span>}</div>
+              <Link to='/favorites' className="go-back" onClick={this.goBack}><span role="img" aria-label="left-angle-bracket">〈</span></Link>
+              <Heart item={data} icon={icon} style={style} isFavorite={isFavorite} />
             </div>
             {data.labels && <div className="label-img"><div><img className="big-label-img" src={data.labels.large} alt="No pic" /></div></div>}
             <h1>{data.name}</h1>
