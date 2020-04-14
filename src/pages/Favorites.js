@@ -30,7 +30,7 @@ class Favorites extends Component {
 
   render() {
     const { favorites, isFavorite } = this.state;
-    console.log(favorites)
+    // console.log(favorites)
     return (
       <div className="index-div section">
         <div className="beers-title">

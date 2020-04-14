@@ -1,74 +1,72 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import authService from './auth-service';
-import './authContext.css';
+import LoadingScreen from '../components/LoadingScreen/LoadingScreen';
 
-const { Provider, Consumer } = React.createContext();
+const Auth = React.createContext();
 
 export const withAuth = (Comp) => { 
   return (props) => {
-    return <Consumer>
+    return <Auth.Consumer>
       {value => {
         return <Comp {...value} {...props} />
       }}
-    </Consumer>
+    </Auth.Consumer>
   }
 }
 
-export default class AuthContext extends Component {
+const AuthContext = (props) => {
+  const [isLogged, setIsLogged] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  useEffect(() => {
+    let ignore = false;
 
-  state = {
-    isLogged: false,
-    user: null,
-    isLoading: true
-  }
-
-  componentDidMount() {
-    authService.me()
-    .then((user)=>{
-      this.setState({
-        user,
-        isLoading : false,
-        isLogged : true
+    const getAuthService = async () => {
+      await authService.me()
+      .then((user) => {if (!ignore) {
+        setUser(user);
+        setIsLoading(false);
+        setIsLogged(true);
+      }})
+      .catch((error) => {
+        setIsLogged(false);
+        setUser(null);
+        setIsLoading(false);
       })
-    })
-    .catch((error)=>{
-      this.setState({
-        isLogged : false,
-        user : null,
-        isLoading : false
-      })
-    })
-  }
+    };
+    getAuthService();
 
-  handleSetUser = (user) => {
-    this.setState({
-      user,
-      isLogged : true
-    })
-  }
+    return () => ignore = true
+  }, []);
 
-  handleLogOut = () =>{
-    authService.logout()
+  const handleSetUser = (user) => {
+    setUser(user);
+    setIsLogged(true);
+  };
+
+  const handleLogOut = async () => {
+    await authService.logout()
     .then(()=>{
-      this.setState({
-        user : null,
-        isLogged : false
+      setIsLogged(false);
+      setUser(null);
       })
-    })
-    .catch((error)=>{
+    .catch((error) => {
       console.error('Error');
     })
   }
 
-  render() {
-    const { isLoading } = this.state;
-    return isLoading ? <div className='loading'><h1>Loading...</h1></div> : <Provider value={{
-      isLogged: this.state.isLogged,
-      user: this.state.user,
-      logout: this.handleLogOut,
-      setUser: this.handleSetUser
+  return (
+    isLoading ? <LoadingScreen /> : 
+    <Auth.Provider value={{
+      isLogged: isLogged,
+      user: user,
+      logout: handleLogOut,
+      setUser: handleSetUser
     }}>
-      {this.props.children}
-    </Provider>
-  }
+      {props.children}
+    </Auth.Provider>
+  );
 }
+
+export default AuthContext;

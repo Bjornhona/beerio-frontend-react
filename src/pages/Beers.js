@@ -1,64 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withAuth } from '../lib/authContext';
 import { Link } from 'react-router-dom';
-// import { beerService } from '../lib/beerService';
 import BeersContainer from '../components/BeersContainer';
+import { beerService } from '../lib/beerService';
 import './Beers.css';
+import LoadingScreen from '../components/LoadingScreen/LoadingScreen';
 
 const Beers = (props) => {
-  const { data, favorites } = props.location.myProps;
-  console.log(data);
-  console.log(favorites);
-
-  // const [beerData, setBeerData] = useState(data);
+  // const { beersData } = props.location.myProps;
+  // const otherData = beersData && (typeof beersData !== undefined );
   const [inputValue, setInputValue] = useState('');
-  // const [myFavorites, setMyFavorites] = useState(favorites);
-  // const [isLoading, setIsLoading] = useState(true);
+  const [beersData, setBeersData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const handleFavorite = (item) => {
-    const favorite = favorites.find(favorite => {
-      return favorite.id === item.id;
-    });
+  useEffect(() => {
+    let ignore = false;
 
-    if (favorite) {
-      item.favorite = true
-    }
-  }
-    
-  const handleSearchInput = (event) => {
-    setInputValue(event.target.value);
-  }
-       
-  const newData = data.filter((item) => {
+    const getBeers = async () => await beerService.getBeers()
+    .then(data => {if (!ignore) {
+      setBeersData(data);
+      setIsLoading(false);
+    }})
+    .catch(error => console.error('Error'));
+    getBeers();
+
+    return () => {ignore = true}
+  }, []);
+
+  const newData = beersData.filter((item) => {
     let dataName = item.name.toUpperCase();
     return dataName.includes(inputValue.toUpperCase())
   });
 
-  console.log(newData);
+  const handleSearchInput = (event) => {
+    setInputValue(event.target.value);
+  }
 
   return (
-    // isLoading ? <div className="section"><h1>Loading...</h1></div> : 
     <div className="beers-div section">
-      <div className="searchbar"><input type="text" name="name" value={inputValue} onChange={handleSearchInput} placeholder="Search" /></div>
+      <div className="searchbar">
+        <input type="text" name="name" value={inputValue} onChange={handleSearchInput} placeholder="Search" />
+      </div>
       <div className="beers-title">
-        <Link to='/home' className="back-sign"><span role="img" aria-label="left-angle-bracket">〈</span></Link>
+        <Link to='/home' className="back-sign">
+          <span role="img" aria-label="left-angle-bracket">〈</span>
+        </Link>
         <h4>Explore the worlds best beers</h4>
         <span></span>
       </div>
-      {newData.map((item) => {
-        handleFavorite(item);
-        const style = item.style && item.style.category.name;
+      {isLoading ? <LoadingScreen /> : 
+      newData.map((item) => {
+        // handleFavorite(item);
+        // const style = item.style && item.style.category.name;
         return (
           <BeersContainer
             key={item.id}
-            id={item.id}
-            isFavorite={item.favorite}
+            // id={item.id}
+            // isFavorite={item.favorite}
             item={item}
-            icon={item.labels.icon}
-            style={style}
-            // update={update}
-            data={newData}
-            favorites={favorites}
+            // icon={item.labels.icon}
+            // style={style}
+            // data={newData}
+            // favorites={favorites}
           />
         )
       })}

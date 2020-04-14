@@ -1,132 +1,75 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { withAuth } from '../lib/authContext';
 import { beerService } from '../lib/beerService';
 import { Link, Redirect } from 'react-router-dom';
 import Heart from '../components/Heart';
 import './Beer.css';
 
-class Beer extends Component {
+const Beer = (props) => {
+  const {id} = props.match.params;
+  // const {id} = this.$route.params.id;
 
-  state = {
-      data: [],
-      favorites: [],
-      item: this.props.item,
-      isFavorite: false,
-      redirect: false,
-      isLoading: true
+  const goBack = () => {
+    props.history.goBack();
   }
+  const [beerData, setBeerData] = useState([]);
+  const [redirect, setRedirect] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
-  componentDidMount() {
-    this.update();
-  }
+  // const icon = beerData.labels && beerData.labels.icon;
+  // const style = beerData.style && beerData.style.category.name;
 
-  update = () => {
-    const id = this.props.match.params.id;
-    beerService.getBeer(id)
-    .then((data) => {
-      this.setState({
-        data: data,
-        isLoading: false
-      })
-    })
-    .catch((error) => {
-      if (error.response.data.code === "not-found" || error.response.data.code === "unexpected" ) {
-        this.setState({
-          redirect: true,
-          isLoading: false
-        })
+  useEffect(() => {
+    let ignore = false;
+
+    const getBeer = () => beerService.getBeer(id)
+    .then(data => {
+      if (!ignore) {
+        setBeerData(data);
+        setIsLoading(false);  
       }
     })
+    .catch(error => {
+      console.error(error.response);
+      if (error.response.status === 404 || error.response.status === 500) {
+        setRedirect(true);
+        setIsLoading(false);
+      }
+    });
+    getBeer();
 
-    beerService.getFavorites()
-    .then((result) => {
-        let isFavorite = this.state;
-        result.find((favorite) => {
-          if (id === favorite.id) {
-            return isFavorite = true;
-          } else {
-            return isFavorite = false;
-          }
-        })
-        this.setState({
-          isFavorite: isFavorite
-        })
+    return () => {ignore = true}
+  }, [id]);
 
-      this.setState({
-        favorites: result,
-      })
-    })
-    .catch((error) => {
-      console.error('Error');
-    })
-  }
-
-  // handleFavorite = (item) => {
-  //   const favorite = this.state.favorites.find(favorite => {
-  //     return favorite.id === item.id;
-  //   });
-
-  //   if (favorite) {
-  //     item.favorite = true
-  //     }
-
-  //   this.setState({
-  //     favorite: favorite
-  //   })
-      
-  //   }
-
-  // saveToFavorites = () => {
-  //   const { isFavorite } = this.state;
-  //   const favorite = this.state;
-    
-  //   beerService.postFavorite({
-  //     id: favorite.data.id,
-  //     name: favorite.data.name,
-  //     isOrganic: favorite.data.isOrganic,
-  //     icon: favorite.data.labels && favorite.data.labels.icon,
-  //     style: favorite.data.style && favorite.data.style.category.name
-  //   })
-  //   .then(() => {
-  //     this.setState({ isFavorite: !isFavorite })
-  //   })
-  //   .catch((error) => {
-  //     console.error('Error');
-  //   })
-  // }
-
-  goBack = () => {
-    this.props.history.goBack();
-  }
-
-  render() {
-    let { data, isFavorite, redirect, isLoading } = this.state;
-    const icon = data.labels && data.labels.icon;
-    const style = data.style && data.style.category.name;
-    return (
-      isLoading ? <div className="section"><h1>Loading...</h1></div> : 
-      redirect ? <Redirect to='/notfound'/> :
-        <div className="section">
-          <div className="beer-container">
-            <div className="back-heart">
-              <Link to='/favorites' className="go-back" onClick={this.goBack}><span role="img" aria-label="left-angle-bracket">〈</span></Link>
-              <Heart item={data} icon={icon} style={style} isFavorite={isFavorite} />
-            </div>
-            {data.labels && <div className="label-img"><div><img className="big-label-img" src={data.labels.large} alt="No pic" /></div></div>}
-            <h1>{data.name}</h1>
-            {data.style && <h5>{data.style.name}</h5>}
-            {data.style && <h6>{data.style.category.name}</h6>}
-            {data.style && <p>{data.style.year}</p>}
-            {data.style && <p>{data.style.description}</p>}
-            <div className="beer-info">
-              <div><strong>Abv: </strong>{data.abv}%</div>
-              <div><strong>Ibu: </strong>{data.style && data.style.ibuMax}</div>
-              <div><strong>Organic Beer:</strong> {data.isOrganic}</div>
-            </div>
+  return (
+    isLoading ? <div className="section"><h1>Loading...</h1></div> : 
+    redirect ? <Redirect to='/notfound'/> :
+    // redirect ? props.history.replace('/notfound') :
+      <div className="section">
+        <div className="beer-container">
+          <div className="back-heart">
+            <Link to='/favorites' className="go-back" onClick={goBack}><span role="img" aria-label="left-angle-bracket">〈</span></Link>
+            {/* <Heart item={beerData} icon={icon} style={style} isFavorite={isFavorite} /> */}
+            <Heart beerData={beerData} />
+          </div>
+          {beerData.labels && <div className="label-img">
+            <div>
+              <img className="big-label-img" src={beerData.labels.large} alt="No pic" />
+              </div>
+            </div>}
+          <h1>{beerData.name}</h1>
+          {beerData.style && <h5>{beerData.style.name}</h5>}
+          {beerData.style && <h6>{beerData.style.category.name}</h6>}
+          {beerData.style && <p>{beerData.style.year}</p>}
+          {beerData.style && <p>{beerData.style.description}</p>}
+          <div className="beer-info">
+            <div><strong>Abv: </strong>{beerData.abv}%</div>
+            <div><strong>Ibu: </strong>{beerData.style && beerData.style.ibuMax}</div>
+            <div><strong>Organic Beer:</strong> {beerData.isOrganic}</div>
           </div>
         </div>
-    )
-  }
+      </div>
+  )
 }
 
 export default withAuth(Beer);
