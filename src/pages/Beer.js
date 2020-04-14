@@ -49,7 +49,6 @@ const Beer = (props) => {
         <div className="beer-container">
           <div className="back-heart">
             <Link to='/favorites' className="go-back" onClick={goBack}><span role="img" aria-label="left-angle-bracket">〈</span></Link>
-            {/* <Heart item={beerData} icon={icon} style={style} isFavorite={isFavorite} /> */}
             <Heart beerData={beerData} />
           </div>
           {beerData.labels && <div className="label-img">

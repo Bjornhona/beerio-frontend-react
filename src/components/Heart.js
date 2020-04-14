@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { beerService } from '../lib/beerService';
+import './Heart.css';
 
 const Heart = ({beerData}) => {
 
@@ -25,7 +26,8 @@ const Heart = ({beerData}) => {
   }, [beerData.id]);
 
   const handleFavorites = async (e) => {
-    // e.preventDefault();   // stops default link to next page in container
+    // stops default link to next page in container
+    e.preventDefault();
 
     await beerService.postFavorite({
       id: beerData.id,

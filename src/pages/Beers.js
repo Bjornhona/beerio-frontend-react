@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { withAuth } from '../lib/authContext';
 import { Link } from 'react-router-dom';
-import BeersContainer from '../components/BeersContainer';
+import BeersItem from '../components/BeersItem';
 import { beerService } from '../lib/beerService';
 import './Beers.css';
 import LoadingScreen from '../components/LoadingScreen/LoadingScreen';
 
 const Beers = (props) => {
+  const history = props.history;
+
   // const { beersData } = props.location.myProps;
   // const otherData = beersData && (typeof beersData !== undefined );
   const [inputValue, setInputValue] = useState('');
@@ -53,7 +55,7 @@ const Beers = (props) => {
         // handleFavorite(item);
         // const style = item.style && item.style.category.name;
         return (
-          <BeersContainer
+          <BeersItem
             key={item.id}
             // id={item.id}
             // isFavorite={item.favorite}
@@ -62,6 +64,7 @@ const Beers = (props) => {
             // style={style}
             // data={newData}
             // favorites={favorites}
+            history={history}
           />
         )
       })}

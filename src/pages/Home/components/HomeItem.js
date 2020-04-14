@@ -10,7 +10,6 @@ const HomeItem = (props) => {
   }
 
   return (
-    <>
     <div className='home-container' onClick={handlePress}>
       <div className="home-text">
         <h2>{h2Text.toUpperCase()}</h2>
@@ -20,7 +19,6 @@ const HomeItem = (props) => {
         <FontAwesomeIcon icon={iconName} className={iconClass} />
       </div>
     </div>
-    </>
   )
 }
 

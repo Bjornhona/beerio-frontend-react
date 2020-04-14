@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withAuth } from '../lib/authContext';
 import { Link } from 'react-router-dom';
 import { beerService } from '../lib/beerService';
-import BeersContainer from '../components/BeersContainer';
+import BeersItem from '../components/BeersItem';
 
 
 class Favorites extends Component {
@@ -40,7 +40,7 @@ class Favorites extends Component {
         {(!favorites) ? <p>You have not selected any favorites yet.</p> : 
           favorites.map((item) => {
             return (
-              <BeersContainer key={item.id} isFavorite={isFavorite} item={item} icon={item.icon} style={item.style} update={this.update} />
+              <BeersItem key={item.id} isFavorite={isFavorite} item={item} icon={item.icon} style={item.style} update={this.update} />
             )
           })
         }

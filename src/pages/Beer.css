@@ -28,11 +28,6 @@
   align-items: center;
 }
 
-.heart {
-  font-size: 30px;
-  padding: 15px;
-}
-
 .label-img {
   display: flex;
   justify-content: center;
