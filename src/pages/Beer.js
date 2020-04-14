@@ -4,6 +4,7 @@ import { beerService } from '../lib/beerService';
 import { Link, Redirect } from 'react-router-dom';
 import Heart from '../components/Heart';
 import './Beer.css';
+import LoadingScreen from '../components/LoadingScreen/LoadingScreen';
 
 const Beer = (props) => {
   const {id} = props.match.params;
@@ -42,7 +43,7 @@ const Beer = (props) => {
   }, [id]);
 
   return (
-    isLoading ? <div className="section"><h1>Loading...</h1></div> : 
+    isLoading ? <LoadingScreen /> : 
     redirect ? <Redirect to='/notfound'/> :
     // redirect ? props.history.replace('/notfound') :
       <div className="section">
