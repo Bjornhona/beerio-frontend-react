@@ -1,75 +1,66 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import auth from '../lib/auth-service';
 import { Link } from 'react-router-dom';
 import { withAuth } from '../lib/authContext';
 
-class Login extends Component {
-  state = {
+const Login = (props) => {
+  const [state, setState] = useState({
     username: "",
     password: "",
     alert: ""
-  }
+  });
 
-  handleFormSubmit = (event) => {
+  const handleFormSubmit = (event) => {
     event.preventDefault();
-    const { username, password } = this.state
+    const {username, password} = state;
 
     auth.login({ username, password })
-    .then( (user) => {
-      this.props.setUser(user)
-      this.props.history.push('/home'); 
+    .then((user) => {
+      props.setUser(user)
+      props.history.push('/home'); 
     })
     .catch(error => {
       console.error('Error');
       const { data } = error.response;
       switch(data.error){
         case 'not-found':
-          this.setState({
-            alert: 'Invalid username or password'
-          });
+          setState(prevState => ({ ...prevState, alert: 'Invalid username or password' }));
           break;
         case 'validation':
-          this.setState({
-            alert: 'Username or password can´t be empty'
-          });
+          setState(prevState => ({ ...prevState, alert: 'Username or password can´t be empty' }));
           break;
         default:
-          this.setState({
-            alert: ''
-          })
+          setState(prevState => ({ ...prevState, alert: '' }));
       }   
-    })
+    });
   }
 
-  handleChange = (event) => {  
+  const handleChange = (event) => {  
     const {name, value} = event.target;
-    this.setState({[name]: value});
+    setState(prevState => ({ ...prevState, [name]: value }));
   }
 
-  render() {
-    const { username, password, alert } = this.state;
-    return (
-      <div className="index-div">
-        <div className="section">
-        <h2>Log in</h2>
-        <p>Welcome back, log in to enter the world of beers!</p>
-        </div>
-        <form onSubmit={this.handleFormSubmit}>
-          <div className="section login">
-            <label>Username:</label>
-            <input type="text" name="username" value={username} onChange={this.handleChange} />
-            <label>Password:</label>
-            <input type="password" name="password" value={password} onChange={this.handleChange} />
-            <input type="submit" value="Log in" className="beer-container beer-button beer-top" />
-            <p>Don´t have an account yet? 
-              <Link to={"/signup"}> Sign up</Link>
-            </p>
-          </div>
-        </form>
-        { alert ? <div className="section alert"><h5>{alert}</h5></div> : <div></div>}
+  return (
+    <div className="index-div">
+      <div className="section">
+      <h2>Log in</h2>
+      <p>Welcome back, log in to enter the world of beers!</p>
       </div>
-    )
-  }
+      <form onSubmit={handleFormSubmit}>
+        <div className="section login">
+          <label>Username:</label>
+          <input type="text" name="username" value={state.username} onChange={handleChange} />
+          <label>Password:</label>
+          <input type="password" name="password" value={state.password} onChange={handleChange} />
+          <input type="submit" value="Log in" className="beer-container beer-button beer-top" />
+          <p>Don´t have an account yet? 
+            <Link to={"/signup"}> Sign up</Link>
+          </p>
+        </div>
+      </form>
+      { state.alert ? <div className="section alert"><h5>{state.alert}</h5></div> : <div></div>}
+    </div>
+  )
 }
 
 export default withAuth(Login);

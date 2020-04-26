@@ -4,7 +4,7 @@ import LoadingScreen from '../components/LoadingScreen/LoadingScreen';
 
 const Auth = React.createContext();
 
-export const withAuth = (Comp) => { 
+export const withAuth = (Comp) => {
   return (props) => {
     return <Auth.Consumer>
       {value => {
@@ -50,7 +50,7 @@ const AuthContext = (props) => {
     .then(()=>{
       setIsLogged(false);
       setUser(null);
-      })
+    })
     .catch((error) => {
       console.error('Error');
     })

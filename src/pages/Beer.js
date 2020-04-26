@@ -9,7 +9,7 @@ import LoadingScreen from '../components/LoadingScreen/LoadingScreen';
 const Beer = (props) => {
   const {id} = props.match.params;
   // const {id} = this.$route.params.id;
-
+  
   const goBack = () => {
     props.history.goBack();
   }
@@ -52,16 +52,22 @@ const Beer = (props) => {
             <Link to='/favorites' className="go-back" onClick={goBack}><span role="img" aria-label="left-angle-bracket">〈</span></Link>
             <Heart beerData={beerData} />
           </div>
+
           {beerData.labels && <div className="label-img">
             <div>
               <img className="big-label-img" src={beerData.labels.large} alt="No pic" />
-              </div>
-            </div>}
+            </div>
+          </div>}
+
           <h1>{beerData.name}</h1>
-          {beerData.style && <h5>{beerData.style.name}</h5>}
-          {beerData.style && <h6>{beerData.style.category.name}</h6>}
-          {beerData.style && <p>{beerData.style.year}</p>}
-          {beerData.style && <p>{beerData.style.description}</p>}
+          {beerData.style && 
+            <>
+              <h5>{beerData.style.name}</h5>
+              <h6>{beerData.style.category.name}</h6>
+              <p>{beerData.style.year}</p>
+              <p>{beerData.style.description}</p>
+            </>
+          }
           <div className="beer-info">
             <div><strong>Abv: </strong>{beerData.abv}%</div>
             <div><strong>Ibu: </strong>{beerData.style && beerData.style.ibuMax}</div>
